@@ -1,0 +1,29 @@
+<h1>ユーザ詳細</h1>
+<% if @user.profile_image? %>
+  <%= image_tag @user.profile_image.url, class: "rounded-circle", style: "width: 150px; height: 150px; object-fit: cover;" %>
+<% end %>
+
+<table>
+<tr>
+<th>名前</th>
+<td><%= @user.name %></td>
+</tr>
+<tr>
+<th>自己紹介</th>
+<td><%= @user.introduction%></td>
+</tr>
+<tr>
+<th>住んでるところ</th>
+<td><%= @user.address %></td>
+</tr>
+</table>
+
+
+<br>
+<%= link_to "プロフィール編集", edit_user_path(@user) %>
+<br>
+<%= link_to "新規投稿", new_post_path %>
+<br>
+<%= link_to "すべての投稿をみる", posts_path%>
+<br>
+<%= link_to "スポット登録", new_place_path %>

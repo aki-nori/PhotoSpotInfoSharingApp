@@ -1,0 +1,10 @@
+<h1>投稿詳細</h1>
+<p>タイトル</p>
+<%= @post.title %>
+<p>コメント</p> 
+<%= @post.comment %>
+<div style="width: 300px;">
+<%= image_tag @post.images[0].url, style: "width: 100%; height: 100%; object-fit: contain;" %>
+</div>
+
+<%= link_to "編集", edit_post_path(@post) %>

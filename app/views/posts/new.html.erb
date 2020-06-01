@@ -1,0 +1,36 @@
+<h1>投稿画面</h1>
+<%= form_with model: @post do |f| %>
+  <div class="form-group">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :place, "場所" %>
+    <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :comment, "コメント" %>
+    <%= f.text_area :comment, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date, "日にち" %>
+    <%= f.date_select :date, class: "form-control" %>
+  </div>
+   <div class="form-group">
+    <%= f.label :time, "時間" %>
+    <%= f.time_select :time, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rate, "お気に入り度" %>
+    <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :images, "写真" %>
+    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
+  </div>
+  <%= f.submit "投稿", class: "btn btn-primary" %>
+<% end %>
