@@ -1,10 +1,176 @@
-<h1>投稿詳細</h1>
-<p>タイトル</p>
-<%= @post.title %>
-<p>コメント</p> 
-<%= @post.comment %>
-<div style="width: 300px;">
-<%= image_tag @post.images[0].url, style: "width: 100%; height: 100%; object-fit: contain;" %>
+
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title"><%= @post.title %></h1>
+        <h2 class="subtitle"><%= @post.place.name %></h2>
+      </div>
+    </div>
+
+
+
+    <div style="justify-content: center;">
+      <figure class="image">
+        <%= image_tag @post.images[0].url, style: "max-height: 500px; object-fit: contain;" %>
+      </figure>
+    </div>
+
+    <br>
+
+    <div class="content is-small">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <h4>
+            <span><i class="fas fa-calendar-alt"></i></span>
+            訪問日
+          </h4>
+          <p datetime="2016-1-1">11:09 PM - 1 Jan 2016</p>
+        </div>
+         <div class="column is-one-fifth">
+          <h4>
+            <span><i class="fas fa-star"></i></span>
+            お気に入り度
+          </h4>
+          <p>★★★</p>
+        </div>
+        <div class="column is-one-fifth">
+          <h4>
+            <span><i class="fas fa-train"></i></span>
+            アクセス方法
+          </h4>
+          <p>東京から車で１時間</p>
+        </div>
+        <div class="column is-one-fifth">
+          <h4>
+            <span><i class="fas fa-exclamation-circle"></i></span>
+            注意事項
+          </h4>
+          <p>〇〇に気をつけて！</p>
+        </div>
+        <div class="column is-one-fifth">
+          <h4>
+            <span><i class="fas fa-link"></i></span>
+            URL
+          </h4>
+          <p>https://sample.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="content is-small">
+      <div class="columns is-mobile">
+        <div class="column">
+          <h4>
+            <% if current_user.id == @post.user.id %>
+              <span><i class="fas fa-camera"></i></span>
+            <% end %>
+            カメラ情報
+          </h4>
+          <p>【直接入力かExifデータ表示】</p>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="columns">
+        <div class="column">
+          <h3>
+            <span><i class="fas fa-file-alt"></i></span>
+            コメント
+          </h3>
+          <p><%= @post.comment %></p>
+        </div>
+      </div>
+    </div>
+
+
+    <hr>
+
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>Barbara Middleton</strong>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+            <br>
+            <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+          </p>
+        </div>
+
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img src="https://bulma.io/images/placeholders/96x96.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Sean Brown</strong>
+                <br>
+                Donec sollicitudin urna eget eros malesuada sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam blandit nisl a nulla sagittis, a lobortis leo feugiat.
+                <br>
+                <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
+              </p>
+            </div>
+
+            <article class="media">
+              Vivamus quis semper metus, non tincidunt dolor. Vivamus in mi eu lorem cursus ullamcorper sit amet nec massa.
+            </article>
+
+            <article class="media">
+              Morbi vitae diam et purus tincidunt porttitor vel vitae augue. Praesent malesuada metus sed pharetra euismod. Cras tellus odio, tincidunt iaculis diam non, porta aliquet tortor.
+            </article>
+          </div>
+        </article>
+
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-48x48">
+              <img src="https://bulma.io/images/placeholders/96x96.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Kayli Eunice </strong>
+                <br>
+                Sed convallis scelerisque mauris, non pulvinar nunc mattis vel. Maecenas varius felis sit amet magna vestibulum euismod malesuada cursus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus lacinia non nisl id feugiat.
+                <br>
+                <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </article>
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="Add a comment..."></textarea>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <button class="button">Post comment</button>
+          </p>
+        </div>
+      </div>
+    </article>
+
+  </div>
 </div>
 
 <%= link_to "編集", edit_post_path(@post) %>
+

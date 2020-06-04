@@ -1,29 +1,30 @@
 <div class="section">
   <div class="container">
     <div class="columns">
-        <%= form_with model: @user do |f| %>
-          <div class="column">
-            <div class="field">
-              <%= f.label :name, "ユーザ名", class: "label" %>
-              <div class="control has-icons-left">
-                <%= f.text_field :name, class: "input" %>
-                <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                </span>
-              </div>
+      <%= form_with model: @user do |f| %>
+        <div class="column">
+          <div class="field">
+            <%= f.label :name, "ユーザ名", class: "label" %>
+            <div class="control has-icons-left">
+              <%= f.text_field :name, class: "input" %>
+              <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
             </div>
-            <div class="field">
-              <%= f.label :introduction, "自己紹介", class: "label" %>
-              <div class="control">
-                <%= f.text_area :introduction, class: "textarea" %>
-              </div>
+          </div>
+          <div class="field">
+            <%= f.label :introduction, "自己紹介", class: "label" %>
+            <div class="control">
+              <%= f.text_area :introduction, class: "textarea" %>
             </div>
-            <div class="field">
-              <%= f.label :address, "すんでいるところ", class: "label" %>
-              <div class="control">
-                <%= f.text_field :address, class: "input" %>
-              </div>
+          </div>
+          <div class="field">
+            <%= f.label :address, "すんでいるところ", class: "label" %>
+            <div class="control">
+              <%= f.text_field :address, class: "input" %>
             </div>
+          </div>
+          <div class="field">
             <div class="file has-name">
               <label class="file-label">
                 <input class="file-input" type="file" name="resume">
@@ -40,10 +41,18 @@
                 </span>
               </label>
             </div>
-            <%= f.submit "保存", class: "button is-primary" %>
           </div>
-        <% end %>
-      </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <%= f.submit "保存", class: "button is-link" %>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Cancel</button>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

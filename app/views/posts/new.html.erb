@@ -1,36 +1,74 @@
-<h1>投稿画面</h1>
-<%= form_with model: @post do |f| %>
-  <div class="form-group">
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-control" %>
+<div class="section">
+  <div class="container">
+    <div class="columns">
+      <%= form_with model: @post do |f| %>
+        <div class="column">
+          <div class="field">
+            <%= f.label :title, "タイトル", class: "label" %>
+            <div class="control">
+            <%= f.text_field :title, class: "input" %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :place, "場所", class: "label" %>
+            <div class="select">
+              <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, class: "form-control" %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :title, "タイトル", class: "label" %>
+            <%= f.text_field :title, class: "input" %>
+          </div>
+          <div class="field">
+            <%= f.label :comment, "コメント", class: "label" %>
+            <%= f.text_area :comment, class: "textarea" %>
+          </div>
+          <div class="field">
+            <%= f.label :date, "日にち", class: "label" %>
+            <%= f.date_field :date, class: "" %>
+          </div>
+          <div class="field">
+            <%= f.label :time, "時間", class: "label" %>
+            <%= f.time_select :time, class: "form-control" %>
+          </div>
+          <div class="field">
+            <%= f.label :rate, "お気に入り度", class: "label" %>
+            <div class="select">
+            <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="file has-name">
+              <label class="file-label">
+                <input class="file-input" type="file" name="resume">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    <%= f.label :profile_image, "写真" %>
+                  </span>
+                </span>
+                <span class="file-name">
+                    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
+                </span>
+              </label>
+            </div>
+          </div>
+
+
+
+          <div class="field is-grouped">
+            <div class="control">
+              <%= f.submit "保存", class: "button is-link" %>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Cancel</button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :place, "場所" %>
-    <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :comment, "コメント" %>
-    <%= f.text_area :comment, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :date, "日にち" %>
-    <%= f.date_select :date, class: "form-control" %>
-  </div>
-   <div class="form-group">
-    <%= f.label :time, "時間" %>
-    <%= f.time_select :time, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :rate, "お気に入り度" %>
-    <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :images, "写真" %>
-    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-  </div>
-  <%= f.submit "投稿", class: "btn btn-primary" %>
-<% end %>
+</div>
