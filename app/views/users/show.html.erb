@@ -1,24 +1,93 @@
-<h1>ユーザ詳細</h1>
-<% if @user.profile_image? %>
-  <%= image_tag @user.profile_image.url, class: "rounded-circle", style: "width: 150px; height: 150px; object-fit: cover;" %>
-<% end %>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <%= @user.name %>
+      </h1>
+      <h2 class="subtitle">
+        【@アカウント】
+      </h2>
+    </div>
+  </div>
+</section>
 
-<table>
-<tr>
-<th>名前</th>
-<td><%= @user.name %></td>
-</tr>
-<tr>
-<th>自己紹介</th>
-<td><%= @user.introduction%></td>
-</tr>
-<tr>
-<th>住んでるところ</th>
-<td><%= @user.address %></td>
-</tr>
-</table>
+<div class="section">
+  <div class="container">
+    <div class="columns is-desktop">
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+          </div>
+          <div class="card-content">
+            <div class="columns">
 
+              <div class="column is-one-quarter">
 
+                <div class="media", style="justify-content: center;">
+                    <figure class="image is-128x128">
+                      <% if @user.profile_image? %>
+                          <%= image_tag @user.profile_image.url, class: "is-rounded", style: "width:100%; height: 128px; object-fit: cover;"%>
+                        <% end %>
+                    </figure>
+             
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="media-content">
+                  <p class="title is-4"><%= @user.name %></p>
+                  <p class="subtitle is-6">@johnsmith</p>
+                </div>
+              
+
+                <div class="content">
+                  <%= @user.introduction%>
+                  <a href="#">#css</a> <a href="#">#responsive</a>
+                  <br>
+                  <%= @user.address %>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="container">
+                <nav class="level is-mobile">
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Tweets</p>
+                      <p class="title">3,456</p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Following</p>
+                      <p class="title">123</p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Followers</p>
+                      <p class="title">456K</p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Likes</p>
+                      <p class="title">789</p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+投稿一覧や投稿を促すカード
 <br>
 <%= link_to "プロフィール編集", edit_user_path(@user) %>
 <br>
