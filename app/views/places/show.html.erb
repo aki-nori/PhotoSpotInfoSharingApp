@@ -1,25 +1,54 @@
-<h1>スポット詳細</h1>
-<table>
-  <tr>
-    <th>スポット名</th>
-    <td><%= @place.name %></td>
-  </tr>
-  <tr>
-    <th>geocode</th>
-    <td><%= @place.geocode %></td>
-  </tr>
-  <tr>
-    <th>info</th>
-    <td><%= @place.infomation %></td>
-  </tr>
-  <tr>
-    <th>住所</th>
-    <td><%= @place.address %></td>
-  </tr>
-</table>
-
-<div style="width: 300px;">
-<%= image_tag @place.images[0].url, style: "width: 100%; height: 100%; object-fit: contain;" %>
+<div class="section">
+  <div class="container">
+    <div class="example">
+      <figure class="image">
+        <div class="img-wrap">
+        <%= image_tag @place.images[0].url, style: "width: 100%; height: 400px; object-fit: cover; " %>
+        </div>
+      </figure>
+      <p class="is-large"><%= @place.name %></p>
+    </div>
+    
+  </div>
 </div>
 
-<%= link_to "編集", edit_place_path(@place) %>
+    <%= link_to "編集", edit_place_path(@place) %>
+
+
+    <%= render partial: 'posts/index', locals: {posts: @place.posts} %>
+  </div>
+</div>
+  
+
+<style>
+.example {
+  position: relative;
+  }
+
+.example p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+  font-size: 10vmin;
+  color: white;
+  font-weight: bold;
+  }
+
+.example img {
+  width: 100%;
+  }
+
+.img-wrap {
+  background-color: #000000;
+}
+.img-wrap img {
+  display: block;
+  opacity: 0.7;
+}
+</style>
+

@@ -1,39 +1,34 @@
 <div class="section">
   <div class="container">
+    <div id='map'></div>
+    <br>
     <div class="columns is-desktop is-multiline">
-      <% @posts.each do |post| %>
+      <% @places.each do |place| %>
         <div class="column is-one-quarter">
           <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
-                <%= link_to post_path(post) do %>
-                  <% if post.images[0] %>
-                    <%= image_tag post.images[0].url, style: "object-fit: cover;" %>
-                  <% end %>
+                <%= link_to place_path(place) do %>
+                  <%= image_tag place.posts.first.images[0].url, style: "object-fit: cover;" %>
                 <% end %>
               </figure>
             </div>
             <div class="card-content">
-              <p class="title is-4"><%= post.title %></p>
-              <div id="likes_buttons_<%= post.id %>">
-                <%= render partial: 'likes/like', locals: {post: post} %>
-              </div>
+              <p class="title is-4"><%= place.name %></p>
 
               <div class="content">
-                <%= post.comment %><a>@bulmaio</a>.
-                <a href="#">#css</a> <a href="#">#responsive</a>
+                <%= place.name %>
                 <br>
                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
               </div>
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    <%= image_tag post.user.profile_image.url, class: "is-rounded", style: "width:100%; height: 48px; object-fit: cover;" %>
+                    
                   </figure>
                 </div>
                 <div class="media-content">
-                  <p class="title is-4"><%= post.user.name %></p>
-                  <p class="subtitle is-6">@johnsmith</p>
+                 
                 </div>
               </div>
             </div>
@@ -43,4 +38,17 @@
     </div>
   </div>
 </div>
+
+<!-- スポットデータ受け渡し用 -->
+<input name="spot_data" type="hidden" value=<%= @posts_data_json %> class="spot_data"/>
+
+<style>
+#map{
+  height: 400px;
+}
+</style>
+
+<!-- Googleマップを利用するためのスクリプト -->
+<%= javascript_include_tag 'googlemap.js' %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
 

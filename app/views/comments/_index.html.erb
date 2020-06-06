@@ -1,0 +1,57 @@
+<% post.comments.each do |comment| %>
+  <article class="media">
+    <%= link_to user_path(comment.user) do %>
+      <figure class="image is-64x64 media-left">
+        <% if comment.user.profile_image? %>
+          <%= image_tag comment.user.profile_image.url, class: "is-rounded", style: "width:100%; height: 64px; object-fit: cover;"%>
+        <% else %>
+          <%= image_tag 'no_image.jpg' %>
+        <% end %>
+      </figure>
+    <% end %>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong><%= comment.user.name %></strong>
+          <br>
+          <%= comment.body %>
+          <br>
+          <small><a>【Like】</a> · <a>【Reply】</a> · <%= time_ago_in_words(comment.created_at) %></small>
+          <% if comment.user == current_user %>
+            <%= link_to comment_path(comment), method: :delete, :class => "close",  remote: true do %>
+              <i class="fas fa-times"></i>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </article>
+
+<% end %>
+
+
+<article class="media">
+  <figure class="image is-64x64 media-left">
+    <% if current_user.profile_image? %>
+      <%= image_tag current_user.profile_image.url, class: "is-rounded", style: "width:100%; height: 64px; object-fit: cover;"%>
+    <% else %>
+      <%= image_tag 'no_image.jpg' %>
+    <% end %>
+  </figure> 
+  <div class="media-content">
+    <%= form_with model: comment do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :post_id, value: post.id %>
+      <div class="field">
+        <p class="control">
+          <%= f.text_area :body, class: "textarea", placeholder: "Add a comment..." %>
+        </p>
+        <div class="field">
+          <p class="control">
+            <%= f.submit "コメント", class: "button" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</article>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root to: 'posts#index'
+  root to: 'open#top'
+  
 
   get 'users/new'
   devise_for :users
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
     get :follows, on: :member
     get :followers, on: :member
   end
+  resources :comments
   resources :places
   resources :posts do
     resources :likes, only: [:create, :destroy]

@@ -3,6 +3,12 @@ class PlacesController < ApplicationController
 
   def index
     @places = Place.all
+    @posts_data_arr = []
+    @places.each do |place|
+      @posts_data_arr.push({:id => place.id, :name => place.name, :lat => place.latitude, :lng => place.longitude})
+    end
+    @posts_data_json = @posts_data_arr.to_json.html_safe
+    
   end
 
   def new

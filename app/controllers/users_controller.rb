@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts
+    @like_count_array = @user.posts.map{|post| post.likes.count}
+    @like_count = @like_count_array.sum
   end
 
   def index
@@ -17,6 +20,18 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.update(user_params)
     redirect_to user_path(user)
+  end
+
+  def followings
+    @user =User.find(params[:id])
+    @users =@user.followings.page(params[:page]).per(5)
+    render 'show_followings'
+  end
+
+  def followers
+    @user =User.find(params[:id])
+    @users =@user.followers.page(params[:page]).per(5)
+    render 'show_followers'
   end
 
   private

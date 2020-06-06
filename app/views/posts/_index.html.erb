@@ -1,7 +1,7 @@
 <div class="section">
   <div class="container">
     <div class="columns is-desktop is-multiline">
-      <% @posts.each do |post| %>
+      <% posts.each do |post| %>
         <div class="column is-one-quarter">
           <div class="card">
             <div class="card-image">
@@ -20,8 +20,7 @@
               </div>
 
               <div class="content">
-                <%= post.comment %><a>@bulmaio</a>.
-                <a href="#">#css</a> <a href="#">#responsive</a>
+                <%= post.comment %>
                 <br>
                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
               </div>
