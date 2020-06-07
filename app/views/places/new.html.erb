@@ -1,28 +1,41 @@
-<h1>スポット登録画面</h1>
-<%= form_with model: @place do |f| %>
-  <div class="form-group">
-    <%= f.label :title, "スポット名" %>
-    <%= f.text_field :name, class: "form-control" %>
+<div class="section">
+  <div class="container">
+    <div id='map'></div>
   </div>
-  <div class="form-group">
-    <%= f.label :geocode, "geocode" %>
-    <%= f.text_field :geocode, class: "form-control"  %>
+  <br>
+  <div class="container">
+    <%= form_with model: @place do |f| %>
+
+      <%= f.hidden_field :latitude, value: 1, id: "set-latitude" %>
+      <%= f.hidden_field :longitude, value: 1, id: "set-longitude" %>
+
+
+      <div class="field">
+        <%= f.label :name, "名称", class: "label" %>
+        <%= f.text_field :name, id: "address", class: "input", id: "address" %>
+      </div>
+      <div class="control">
+        <input type="button" value="見つける" onclick="codeAddress()" class="button">
+        
+      </div>
+      <%= f.submit "この場所を登録する", class: "button" %>
+  <% end %>
+
   </div>
-  <div class="form-group">
-    <%= f.label :infomation, "infomation" %>
-    <%= f.text_area :infomation, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :address, "住所" %>
-    <%= f.text_field :address, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :images, "写真" %>
-    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :category_id, "カテゴリ" %>
-    <%= f.select :category_id, @categories.map{|category| [category.name, category.id]} %>
-  </div>
-  <%= f.submit "投稿", class: "btn btn-primary" %>
-<% end %>
+</div>
+
+    
+
+
+
+
+<style>
+#map{
+  height: 400px;
+}
+</style>
+
+<!-- Googleマップを利用するためのスクリプト -->
+<%= javascript_include_tag 'new_place.js' %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+

@@ -1,0 +1,53 @@
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ユーザー一覧
+      </h1>
+      <h2 class="subtitle">
+        ユーザーをみつける
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<div class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% @users.each do |user| %>
+        <div class="column is-one-quarter">
+          <div class="card">
+            <div class="card-content">
+              <div class="media", style="justify-content: center;">
+                <%= link_to user_path(user) do %>
+                  <figure class="image is-128x128">
+                    <% if user.profile_image? %>
+                      <%= image_tag user.profile_image.url, class: "is-rounded", style: "width:100%; height: 128px; object-fit: cover;"%>
+                    <% else %>
+                      <%= image_tag 'no_image.jpg' %>
+                    <% end %>
+                  </figure>
+                <% end %>
+              </div>
+              <div class="media-content">
+                <p class="title is-4"><%= user.name %></p>
+                <p class="subtitle is-6">@johnsmith</p>
+              </div>
+              <div class="content">
+                <%= user.introduction%>
+                <br>
+                <span><i class="fas fa-map-marker-alt"></i></span>
+                <%= user.address %>
+                <div id="relationship-<%= user.id %>">
+                  <%= render 'relationships/follow', user: user %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

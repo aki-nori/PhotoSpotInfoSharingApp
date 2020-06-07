@@ -1,0 +1,2 @@
+// フォローボタンの更新
+$("#relationship-<%= @user.id %>").html("<%= j(render partial: 'relationships/follow', locals: { user: @user }) %>");

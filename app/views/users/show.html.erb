@@ -1,11 +1,11 @@
-<section class="hero is-primary">
+<section class="hero is-info">
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
         <%= @user.name %>
       </h1>
       <h2 class="subtitle">
-        【@アカウント】
+        <%= "@#{@user.account_name}" %>
       </h2>
     </div>
   </div>
@@ -22,6 +22,11 @@
             <div class="columns">
 
               <div class="column is-one-quarter">
+                <% if @user == current_user %>
+                  <%= link_to edit_user_path(@user) do %>編集
+                    <span><i class="fas fa-user-edit"></i></span>
+                  <% end %>
+                <% end %>
 
                 <div class="media", style="justify-content: center;">
                     <figure class="image is-128x128">
@@ -42,8 +47,8 @@
 
                 <div class="content">
                   <%= @user.introduction%>
-                  <a href="#">#css</a> <a href="#">#responsive</a>
                   <br>
+                  <span><i class="fas fa-map-marker-alt"></i></span>
                   <%= @user.address %>
                 </div>
               </div>
@@ -54,28 +59,29 @@
                 <nav class="level is-mobile">
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Tweets</p>
-                      <p class="title">3,456</p>
+                      <p class="heading">投稿数</p>
+                      <p class="title"><%= @user.posts.count %></p>
                     </div>
                   </div>
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Following</p>
-                      <p class="title">123</p>
+                      <p class="heading">いいね数</p>
+                      <p class="title"><%= @like_count %></p>
                     </div>
                   </div>
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Followers</p>
-                      <p class="title">456K</p>
+                      <p class="heading">フォロワー数</p>
+                      <p class="title"><%= Relationship.where(following_id: @user.id).count %></p>
                     </div>
                   </div>
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="heading">Likes</p>
-                      <p class="title">789</p>
+                      <p class="heading">フォロー数</p>
+                      <p class="title"><%= Relationship.where(follower_id: @user.id).count %></p>
                     </div>
                   </div>
+                  
                 </nav>
               </div>
             </div>
@@ -87,11 +93,12 @@
   </div>
 </div>
 
-投稿一覧や投稿を促すカード
+
+
+<%= render partial: 'posts/index', locals: {posts: @posts} %>
+
+
 <br>
-<%= link_to "プロフィール編集", edit_user_path(@user) %>
-<br>
-<%= link_to "新規投稿", new_post_path %>
 <br>
 <%= link_to "すべての投稿をみる", posts_path%>
 <br>

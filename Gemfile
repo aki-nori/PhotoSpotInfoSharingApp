@@ -75,3 +75,6 @@ gem 'bulma-rails'
 
 gem 'jquery-rails'
 gem 'font-awesome-sass'
+
+# 環境変数の管理
+gem 'dotenv-rails'

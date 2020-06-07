@@ -10,14 +10,13 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :went_to_gos, dependent: :destroy
 
-  has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
-  has_many :followings, through: :active_relationships, source: :follower
+  has_many :following_relationships,foreign_key: "follower_id", class_name: "FollowRelationship",  dependent: :destroy
+  has_many :followings, through: :following_relationships
+  has_many :follower_relationships,foreign_key: "following_id",class_name: "FollowRelationship", dependent: :destroy
+  has_many :followers, through: :follower_relationships
 
-  has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
-  has_many :followers, through: :passive_relationships, source: :following
-
-  def followed_by?(user)
-    passive_relationships.find_by(following_id: user.id).present?
+  def following?(other_user)
+    self.followings.include?(other_user)
   end
 
   mount_uploader :profile_image, ImageUploader

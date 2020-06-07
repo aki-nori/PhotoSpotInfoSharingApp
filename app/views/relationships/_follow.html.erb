@@ -1,0 +1,19 @@
+<% unless user == current_user %>
+	<% unless Relationship.exists?(following_id: user.id, follower_id: current_user.id) %>
+		<%= link_to user_relationships_path(user), method: :post, remote: true do%>
+		<h5>
+		  <span><i class="far fa-heart"></i></span> <%= Relationship.where(following_id: user.id).count %>
+		</h5>
+		<% end %>
+	<% else %>
+		<%= link_to user_relationships_path(user), method: :delete, remote: true do %>
+		<h5>
+		   <span><i class="fas fa-heart"></i> </span><%= Relationship.where(following_id: user.id).count %>
+		</h5>
+		<% end %>
+	<% end %>
+<% else %>
+	<h5>
+    <p>ログインユーザー<%= Relationship.where(following_id: current_user.id).count %></p>
+  </h5>
+<% end %>
