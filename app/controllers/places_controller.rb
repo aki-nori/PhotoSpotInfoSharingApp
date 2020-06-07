@@ -17,11 +17,16 @@ class PlacesController < ApplicationController
   end
 
   def create
+    
+    
     place = Place.new(place_params)
+    
+    
     place.created_by = current_user.id
     place.is_delete = false
-    place.save
-    redirect_to place_path(place)
+    place.save!
+    redirect_to new_place_post_path(place)
+
   end
 
   def show
@@ -45,6 +50,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :geocode, :infomation, :address, :is_delete, :created_by, :category_id, {images: []})
+    params.require(:place).permit(:name, :latitude, :longitude, :infomation, :address, :is_delete, :created_by, :category_id, {images: []})
   end
 end

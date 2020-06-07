@@ -8,6 +8,8 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @places = Place.all
+    
+    @place = Place.find(params[:place_id])
   end
 
   def create
@@ -39,6 +41,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title,:user_id, :place_id, :comment, :place, :date, :time, {images: []})
+    params.require(:post).permit(:title, :user_id, :place_id, :comment, :date, :time, :rate, :access, :notify, :url, {images: []})
   end
 end

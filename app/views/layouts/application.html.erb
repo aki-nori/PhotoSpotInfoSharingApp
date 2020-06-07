@@ -27,7 +27,7 @@
             <% if user_signed_in? %>
               <%= link_to current_user.name, user_path(current_user), class: "navbar-item"%>
               <%= link_to "場所を探す", places_path, class: "navbar-item" %>
-              <%= link_to "投稿する", new_post_path, class: "navbar-item" %>
+              <%= link_to "投稿する", new_place_path, class: "navbar-item" %>
             <% end %>  
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">

@@ -3,23 +3,28 @@
     <div id='map'></div>
     <br>
     <div class="columns is-desktop is-multiline">
-      <% @places.each do |place| %>
+      <% @places.order(created_at: "DESC").each do |place| %>
         <div class="column is-one-quarter">
           <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
+              <% if place.posts.present? %>
                 <%= link_to place_path(place) do %>
                   <%= image_tag place.posts.first.images[0].url, style: "object-fit: cover;" %>
+                <% end %>
                 <% end %>
               </figure>
             </div>
             <div class="card-content">
-              <p class="title is-4"><%= place.name %></p>
+              <p class="title is-4"><i class="fas fa-map-marker-alt"></i> <%= place.name %></p>
 
               <div class="content">
                 <%= place.name %>
                 <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <b>投稿数</b><%= place.posts.count %>
+                <% if place.posts.present? %>
+                <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>
+                <% end %>
               </div>
               <div class="media">
                 <div class="media-left">

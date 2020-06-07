@@ -12,9 +12,24 @@
 
     <div style="justify-content: center;">
       <figure class="image">
-        <%= image_tag @post.images[0].url, style: "max-height: 500px; object-fit: contain;" %>
+        <div class="main_image_box">
+          <%= image_tag @post.images[0].url, class: "mainimage img01", style: "max-height: 600px; min-height: 400px; width: 100%; object-fit: contain;" %>
+        </div>	
       </figure>
     </div>
+
+    <br>
+
+    <!-- ***** サムネイル ***** -->
+    <div class="detail">
+      <ul class="subimage img01">
+        <% @post.images.each do |image| %>
+        <li>
+          <%= image_tag image.url, style: "object-fit: contain;" %>
+        </li>
+        <% end %>
+      </ul>
+    </div><!-- .detail end -->
 
     <br>
 
@@ -25,35 +40,35 @@
             <span><i class="fas fa-calendar-alt"></i></span>
             訪問日
           </h4>
-          <p datetime="2016-1-1">11:09 PM - 1 Jan 2016</p>
+          <p datetime="2016-1-1"><%= @post.date %></p>
         </div>
          <div class="column is-one-fifth">
           <h4>
             <span><i class="fas fa-star"></i></span>
             お気に入り度
           </h4>
-          <p>★★★</p>
+          <p><%= @post.rate %></p>
         </div>
         <div class="column is-one-fifth">
           <h4>
             <span><i class="fas fa-train"></i></span>
             アクセス方法
           </h4>
-          <p>東京から車で１時間</p>
+          <p><%= @post.access %></p>
         </div>
         <div class="column is-one-fifth">
           <h4>
             <span><i class="fas fa-exclamation-circle"></i></span>
             注意事項
           </h4>
-          <p>〇〇に気をつけて！</p>
+          <p><%= @post.notify %></p>
         </div>
         <div class="column is-one-fifth">
           <h4>
             <span><i class="fas fa-link"></i></span>
             URL
           </h4>
-          <p>https://sample.com</p>
+          <%= link_to @post.url, @post.url %></p>
         </div>
       </div>
     </div>
@@ -94,3 +109,51 @@
 
 <%= link_to "編集", edit_post_path(@post) %>
 
+
+
+<script>
+$(function(){
+    $('.subimage li').hover(function(){
+        //オーバーしたliのインデックスを取得
+        var index = $('.subimage li').index(this);
+        console.log(index);
+        //オーバーした画像URLを取得
+        var imageurl = $('.subimage li').eq(index).find('img').attr('src');
+        console.log(imageurl);
+        //ulのクラス名を取得（空白で分割）
+        className = $(this).parent().attr('class').split(" ");
+        //元のメイン画像を保存しておく
+        defaultImage = $('img.mainimage.'+className[1]).attr('src');
+        $('img.mainimage.'+className[1]).attr('src',imageurl);
+    },function(){
+        $('img.mainimage.'+className[1]).attr('src',defaultImage);
+    });
+});
+</script>
+
+
+<style>
+.detail {
+  display: flex;
+  justify-content: center;
+}
+
+.detail ul{
+    
+    text-align: center;
+    
+  
+}
+.detail li{
+
+  display: -moz-inline-box;
+  display: inline-block;
+  /display: inline;
+  /zoom: 1;
+  padding-right: 10px;
+  width: 20%;
+
+}
+
+
+</style>

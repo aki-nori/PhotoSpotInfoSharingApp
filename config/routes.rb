@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     get :followers, on: :member
   end
   resources :comments
-  resources :places
+  resources :places do
+    resources :posts, only: [:new]
+  end
   resources :posts do
     resources :likes, only: [:create, :destroy]
   end
