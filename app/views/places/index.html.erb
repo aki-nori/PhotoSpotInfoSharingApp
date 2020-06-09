@@ -21,6 +21,9 @@
               <div class="content">
                 <%= place.name %>
                 <br>
+                <div id="went-to-go-<%= place.id %>">
+                  <%= render partial: 'went_to_gos/went_to_go', locals: {place: place} %>
+                </div>
                 <b>投稿数</b><%= place.posts.count %>
                 <% if place.posts.present? %>
                 <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>

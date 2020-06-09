@@ -93,6 +93,9 @@
             コメント
           </h3>
           <p><%= @post.comment %></p>
+          <div id="likes_buttons_<%= @post.id %>">
+            <%= render partial: 'likes/like', locals: {post: @post} %>
+          </div>
         </div>
       </div>
     </div>

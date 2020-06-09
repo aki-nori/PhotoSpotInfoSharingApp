@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :places do
     resources :posts, only: [:new]
+    resources :went_to_gos, only: [:create, :destroy]
   end
   resources :posts do
     resources :likes, only: [:create, :destroy]
