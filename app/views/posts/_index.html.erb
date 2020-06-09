@@ -15,9 +15,6 @@
             </div>
             <div class="card-content">
               <p class="title is-4"><%= post.title %></p>
-              <div id="likes_buttons_<%= post.id %>">
-                <%= render partial: 'likes/like', locals: {post: post} %>
-              </div>
 
               <div class="content">
                 <%= post.comment %>
