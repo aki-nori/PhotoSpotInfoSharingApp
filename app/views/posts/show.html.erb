@@ -40,12 +40,15 @@
             <span><i class="fas fa-calendar-alt"></i></span>
             訪問日
           </h4>
-          <p datetime="2016-1-1"><%= @post.date %></p>
+          <p><%= @post.date.strftime("%Y年%m月%d日 %a") %></p>
+          <% if @post.time.present? %>
+            <p><%= @post.time.strftime("%H:%M %P") %></p>
+          <% end %>
         </div>
          <div class="column is-one-fifth">
           <h4>
             <span><i class="fas fa-star"></i></span>
-            お気に入り度
+            オススメ度
           </h4>
           <p><%= @post.rate %></p>
         </div>
@@ -81,7 +84,7 @@
             <% end %>
             カメラ情報
           </h4>
-          <p>【直接入力かExifデータ表示】</p>
+          <p><%= @post.camera %></p>
         </div>
       </div>
     </div>
@@ -93,6 +96,11 @@
             コメント
           </h3>
           <p><%= @post.comment %></p>
+          <div  class="has-text-right">
+            <%= link_to edit_post_path(@post) do %>
+              <span><i class="fas fa-edit"></i>編集</span>
+            <% end %>
+          </div>
           <div id="likes_buttons_<%= @post.id %>">
             <%= render partial: 'likes/like', locals: {post: @post} %>
           </div>
@@ -110,7 +118,7 @@
   </div>
 </div>
 
-<%= link_to "編集", edit_post_path(@post) %>
+
 
 
 

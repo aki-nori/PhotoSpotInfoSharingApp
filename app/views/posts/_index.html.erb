@@ -14,11 +14,14 @@
               </figure>
             </div>
             <div class="card-content">
-              <p class="title is-4"><%= post.title %></p>
-
+              <%= link_to post_path(post) do %>
+                <p class="title is-4"><%= post.title %></p>
+              <% end %>
               <div class="content">
-                <%= post.comment %>
-                <br>
+                <div style="">
+                  <p style="height: 100px; overflow: hidden; text-overflow: ellipsis;"><%= post.comment %></p>
+                </div>
+                
                 <time datetime="2016-1-1"><%= post.created_at %></time>
               </div>
               <%= link_to user_path(post.user) do %>

@@ -1,12 +1,90 @@
-<h1>投稿編集画面</h1>
-<%= form_with model: @post do |form| %>
-  <%= form.label :title, "タイトル" %>
-  <%= form.text_field :title %>
-  <%= form.label :comment, "コメント" %>
-  <%= form.text_area :comment %>
-  <%= form.label :camera, "カメラ" %>
-  <%= form.text_field :camera %>
-  <%= form.label :images, "写真" %>
-  <%= form.file_field :images, multiple: true %>
-  <%= form.submit %>
-<% end %>
+<div class="section">
+  <div class="container">
+    <div class="">
+      <%= form_with model: @post do |f| %>
+        <div class="">
+          <div class="field">
+            <%= f.label :title, "タイトル", class: "label" %>
+            <div class="control">
+            <%= f.text_field :title, class: "input" %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :place, "場所", class: "label" %>
+            <div class="select">
+              <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, selected: @place.id, class: "form-control" %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :date, "訪問日", class: "label" %>
+            <%= f.date_field :date, class: "" %>
+          </div>
+          <div class="field">
+            <%= f.label :time, "時間", class: "label" %>
+            <%= f.time_field :time, class: "" %>
+          </div>
+          <div class="field">
+            <%= f.label :rate, "オススメ度", class: "label" %>
+            <div class="select">
+            <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :access, "アクセス方法", class: "label" %>
+            <%= f.text_area :access, class: "textarea" %>
+          </div>
+          <div class="field">
+            <%= f.label :notify, "注意事項", class: "label" %>
+            <%= f.text_area :notify, class: "textarea" %>
+          </div>
+          <div class="field">
+            <%= f.label :url, "参考URL", class: "label" %>
+            <%= f.text_field :url, class: "input" %>
+          </div>
+          <div class="field">
+            <%= f.label :comment, "コメント", class: "label" %>
+            <%= f.text_area :comment, class: "textarea" %>
+          </div>
+          
+          <div class="field">
+            <%= f.label :camera, "機材", class: "label" %>
+            <%= f.text_area :camera, class: "textarea" %>
+          </div>
+          
+          
+          <div class="field">
+            <div class="file has-name">
+              <label class="file-label">
+                <input class="file-input" type="file" name="resume">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    <%= f.label :profile_image, "写真" %>
+                  </span>
+                </span>
+                <span class="file-name">
+                    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
+                </span>
+              </label>
+            </div>
+          </div>
+
+
+
+          <div class="field is-grouped">
+            <div class="control">
+              <%= f.submit "保存", class: "button is-link" %>
+            </div>
+            <% if false%>
+            <div class="control">
+              <button class="button is-link is-light">Cancel</button>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
