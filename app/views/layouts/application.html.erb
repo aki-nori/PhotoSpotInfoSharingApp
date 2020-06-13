@@ -10,76 +10,63 @@
   </head>
 
   <body>
-    <header>
-      <nav class="navbar is-white" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="#">
-            <%= image_tag "fotopo_logo.png", alt: "Rails icon", id: "pic1", class: "image", style: "" %>
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo">
+          <%= image_tag "fotopo_logo.png", alt: "FOTOPO icon", id: "pic1", class: "brand-logo", style: "width: 270px; margin: 11px;" %>
+        </a>
+        <%# ↓brand-logoクラスをつけないとuser/showなどの画像表示が崩れる %>
+        <ul class="right hide-on-med-and-down brand-logo">
+          <li class="">
+            <%= link_to root_path do %>
+            <i class="fas fa-home" style=""></i>HOME
+            <% end %>
+          </li>
+          <li>
+            <%= link_to places_path do %>
+              <i class="fas fa-map-marker-alt"></i>スポット
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_place_path, class: "navbar-item"  do %>
+              <i class="fas fa-images"></i>投稿
+            <% end %>
+          </li>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <% if user_signed_in? %>
-              <%= link_to current_user.name, user_path(current_user), class: "navbar-item"%>
-              <%= link_to "場所を探す", places_path, class: "navbar-item" %>
-              <%= link_to "投稿する", new_place_path, class: "navbar-item" %>
-            <% end %>  
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                More
-              </a>
+        </ul>
 
-              <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  About
-                </a>
-                <a class="navbar-item">
-                  Jobs
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <% if user_signed_in? %>
-                  <%= link_to(destroy_user_session_path, method: :delete, class: "button is-light") do %>
-                    Log out
-                  <% end %>
-                <% else %>
-                  <%= link_to(new_user_registration_path, class: "button is-primary") do %>
-                    <strong>Sign up</strong>
-                  <% end %>
-                  <%= link_to(new_user_session_path, class: "button is-light") do %>
-                    Log in
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
     <main>
-      <%= yield %>
+    <%= yield %>
     </main>
-    <footer class="footer">
+  
+    <footer class="page-footer teal lighten-3">
       <div class="container">
-        <div class="content has-text-centered">
-          2020 ©YAC
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Footer Content</h5>
+            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2020 YAC
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
         </div>
       </div>
     </footer>

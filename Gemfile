@@ -71,8 +71,11 @@ gem 'devise'
 
 # 画像データのアップロード
 gem 'carrierwave'
+gem 'rmagick'
 # CSSフレームワーク
-gem 'bulma-rails'
+# gem 'bulma-rails'
+gem 'materialize-sass', '~> 1.0.0'
+gem 'material_icons' 
 
 gem 'jquery-rails'
 gem 'font-awesome-sass'

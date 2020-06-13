@@ -1,64 +1,52 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h3 class="title">
         ログイン
-      </h1>
-      <h2 class="subtitle">
-        Let's go and shere.
-      </h2>
+      </h3>
     </div>
-  </div>
-</section>
 
+    <div class="col s12">
 
-<div class="section">
-  <div class="container">
-    <div class="columns is-desktop">
-      <div class="column is-half">
-
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field">
-            <%= f.label :email, class: "label" %>
-            <div class="control has-icons-left">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-            </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "" %>
+            <%= f.label :email, class: "" %>
           </div>
+        </div>
 
-          <div class="field">
-            <%= f.label :password, class: "label" %>
-            <div class="control has-icons-left">
+        <div class="row">
+          <div class="input-field col s12">
             <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-key"></i>
-            </span>
-            </div>
+            <%= f.label :password, class: "label" %>
           </div>
+        </div>
 
+        <div class="row">
           <% if devise_mapping.rememberable? %>
-            <div class="field">
-              <div class="control">
-                <label class="checkbox">
-                  <%= f.check_box :remember_me, class: "checkbox" %>
-                  <%= f.label :remember_me %>
+            <form action="#">
+              <p>
+                <label>
+                  <%= f.check_box :remember_me %>
+                  <span><%= f.label :remember_me %></span>
                 </label>
-              </div>
-            </div>
+              </p>
+            </form> 
           <% end %>
+        </div>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.submit "Log in", class: "button is-link" %>
-            </div>
-          </div>
-        <% end %>
+        <div class="row">
+          <%= f.button type: "submit", class: "btn waves-effect waves-light" do %>
+            ログイン
+          <% end %>
+        </div>
+  
+      <% end %>
 
-        <%= render "users/shared/links" %>
-        
-      </div>
+      <%= render "users/shared/links" %>
+
     </div>
   </div>
 </div>

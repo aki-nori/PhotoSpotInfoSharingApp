@@ -1,84 +1,63 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h3 class="title">
         新規登録
-      </h1>
-      <h2 class="subtitle">
-        Let's go and shere.
-      </h2>
+      </h3>
     </div>
-  </div>
-</section>
 
+    <div class="col s12">
 
-<div class="section">
-  <div class="container">
-    <div class="columns is-desktop">
-      <div class="column is-half">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
 
-           <div class="field">
-            <%= f.label :name, class: "label" %>
-            <div class="control has-icons-left">
-              <%= f.text_field :name, autofocus: true, autocomplete: "nickname", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-            </div>
-            <p class="help">表示名を入力してください</p>
-          </div>
-
-           <div class="field">
-            <%= f.label :account_name, class: "label" %>
-            <div class="control has-icons-left">
-              <%= f.text_field :account_name, autofocus: true, autocomplete: "username", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-signature"></i>
-              </span>
-            </div>
-             <p class="help">ユーザー名を入力してください</p>
-          </div>
-
-          <div class="field">
-            <%= f.label :email, class: "label" %>
-            <div class="control has-icons-left">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :name, autofocus: true, autocomplete: "nickname", class: "" %>
+              <%= f.label :name, class: "" %>
             </div>
           </div>
 
-          <div class="field">
-            <%= f.label :password, class: "label" %>
-            <div class="control has-icons-left">
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :account_name, autofocus: true, autocomplete: "username", class: "" %>
+              <%= f.label :account_name, class: "" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "" %>
+              <%= f.label :email, class: "" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
               <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-key"></i>
-              </span>
+              <%= f.label :password, class: "label" %>
             </div>
-             <% if @minimum_password_length %>
-            <p class="help">(<%= @minimum_password_length %> characters minimum)</p>
+            <% if @minimum_password_length %>
+              <p class="help">(<%= @minimum_password_length %> characters minimum)</p>
             <% end %>
           </div>
 
-          <div class="field">
-            <%= f.label :password_confirmation, class: "label" %>
-             <div class="control has-icons-left">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
-              <span class="icon is-small is-left">
-                <i class="fas fa-key"></i>
-              </span>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "" %>
+              <%= f.label :password_confirmation, class: "" %>
             </div>
           </div>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.submit "Sign up", class: "button is-link" %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.button type: "submit" "Sign up", class: "btn waves-effect waves-light" do %>
+                新規登録
+              <% end %>
             </div>
           </div>
+
         <% end %>
 
         <%= render "users/shared/links" %>

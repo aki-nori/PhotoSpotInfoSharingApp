@@ -14,6 +14,6 @@
 	<% end %>
 <% else %>
 	<h5>
-    <p>ログインユーザー<%= Relationship.where(following_id: current_user.id).count %></p>
+    <%= Relationship.where(following_id: current_user.id).count %>
   </h5>
 <% end %>
