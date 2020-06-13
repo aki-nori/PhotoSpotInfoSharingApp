@@ -1,15 +1,19 @@
-
-<div class="section">
-  <div class="container">
-    <div class="columns">
-      <div class="column">
-        <h1 class="title"><%= @post.title %></h1>
-        <h2 class="subtitle"><%= @post.place.name %></h2>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col m12">
+      <h4>
+        <%= @post.title %>
+        <%= link_to edit_post_path(@post) do %>
+        <i class="fas fa-edit"></i>
+        <% end %>
+      </h4>
+      <%= link_to place_path(@post.place) do %>
+        <h5><i class="fas fa-map-marker-alt"></i><b><%= @post.place.name %></b></h5>
+      <% end %>
     </div>
+  </div>
 
-
-
+  <div class="row">
     <div style="justify-content: center;">
       <figure class="image">
         <div class="main_image_box">
@@ -17,122 +21,147 @@
         </div>	
       </figure>
     </div>
-
-    <br>
-
-    <!-- ***** サムネイル ***** -->
-    <div class="detail">
-      <ul class="subimage img01">
-        <% @post.images.each do |image| %>
-        <li>
-          <%= image_tag image.url, style: "object-fit: contain;" %>
-        </li>
-        <% end %>
-      </ul>
-    </div><!-- .detail end -->
-
-    <br>
-
-    <div class="content is-small">
-      <div class="columns">
-        <div class="column is-one-fifth">
-          <h4>
-            <span><i class="fas fa-calendar-alt"></i></span>
-            訪問日
-          </h4>
-          <p datetime="2016-1-1"><%= @post.date %></p>
-        </div>
-         <div class="column is-one-fifth">
-          <h4>
-            <span><i class="fas fa-star"></i></span>
-            お気に入り度
-          </h4>
-          <p><%= @post.rate %></p>
-        </div>
-        <div class="column is-one-fifth">
-          <h4>
-            <span><i class="fas fa-train"></i></span>
-            アクセス方法
-          </h4>
-          <p><%= @post.access %></p>
-        </div>
-        <div class="column is-one-fifth">
-          <h4>
-            <span><i class="fas fa-exclamation-circle"></i></span>
-            注意事項
-          </h4>
-          <p><%= @post.notify %></p>
-        </div>
-        <div class="column is-one-fifth">
-          <h4>
-            <span><i class="fas fa-link"></i></span>
-            URL
-          </h4>
-          <%= link_to @post.url, @post.url %></p>
-        </div>
-      </div>
-    </div>
-    <div class="content is-small">
-      <div class="columns is-mobile">
-        <div class="column">
-          <h4>
-            <% if current_user.id == @post.user.id %>
-              <span><i class="fas fa-camera"></i></span>
-            <% end %>
-            カメラ情報
-          </h4>
-          <p>【直接入力かExifデータ表示】</p>
-        </div>
-      </div>
-    </div>
-    <div class="content">
-      <div class="columns">
-        <div class="column">
-          <h3>
-            <span><i class="fas fa-file-alt"></i></span>
-            コメント
-          </h3>
-          <p><%= @post.comment %></p>
-          <div id="likes_buttons_<%= @post.id %>">
-            <%= render partial: 'likes/like', locals: {post: @post} %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <hr>
-
-    <div id="comment">
-      <%= render partial: 'comments/index', locals: {post: @post, comment: @comment} %>
-    </div>
-
   </div>
+
+  <div class="row">
+    <ul class="subimage img01">
+      <% @post.images.each do |image| %>
+        <div class="col s3">
+          <%= image_tag image.url, style: "width: 100%; object-fit: contain;" %>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+
+
+  <div class="divider"></div>
+
+  <div class="row">
+    <table class="striped">
+      <tbody>
+        <tr>
+          <th>
+            <span><i class="fas fa-calendar-alt"></i> 訪問日</span>
+          </th>
+          <td>
+              <%= @post.date.strftime("%Y年%m月%d日 %a") %>
+              <% if @post.time.present? %>
+                <span style="padding-left: 10px;">
+                  <%= @post.time.strftime("%H:%M %P") %>
+                </span>
+              <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-star"></i> オススメ度</span>
+          </th>
+          <td>
+            <% case @post.rate.to_i %>
+            <% when 1 %>
+              ★
+            <% when 2 %>
+              ★★
+            <% when 3 %>
+              ★★★
+            <% when 4 %>
+              ★★★★
+            <% when 5 %>
+              ★★★★★
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-train"></i> アクセス</span>
+          </th>
+          <td>
+            <%= @post.access %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-exclamation-circle"></i> 注意事項</span>
+          </th>
+          <td>
+            <%= @post.notify %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-link"></i> URL</span>
+          </th>
+          <td>
+            <%= link_to @post.url, @post.url %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-camera"></i> カメラ</span>
+          </th>
+          <td>
+            <%= @post.camera %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><%= @post.comment %></p>
+  
+  <div class="divider"></div>
+
+  <div class="center" style="margin: 20px 0;">
+    <h3 style="margin: 0;">
+      <div id="likes_buttons_<%= @post.id %>">
+        <%= render partial: 'likes/like', locals: {post: @post} %>
+      </div>
+    </h3>
+    <br>
+    <h3 style="margin: 0; display: inline-block;">
+      <div id="went-to-go-<%= @post.place.id %>">
+        <%= render partial: 'went_to_gos/went_to_go', locals: {place: @post.place} %>
+      </div>
+    </h3>
+  </div>
+
+  <div class="divider"></div>
+  
+  <br>
+
+  <div id="comment">
+    <%= render partial: 'comments/index', locals: {post: @post, comment: @comment} %>
+  </div>
+
 </div>
 
-<%= link_to "編集", edit_post_path(@post) %>
+
+
 
 
 
 <script>
 $(function(){
-    $('.subimage li').hover(function(){
+    $('.subimage .col').hover(function(){
         //オーバーしたliのインデックスを取得
-        var index = $('.subimage li').index(this);
-        console.log(index);
+        var index = $('.subimage .col').index(this);
+
         //オーバーした画像URLを取得
-        var imageurl = $('.subimage li').eq(index).find('img').attr('src');
-        console.log(imageurl);
+        var imageurl = $('.subimage .col').eq(index).find('img').attr('src');
+
         //ulのクラス名を取得（空白で分割）
         className = $(this).parent().attr('class').split(" ");
+
         //元のメイン画像を保存しておく
         defaultImage = $('img.mainimage.'+className[1]).attr('src');
+
         $('img.mainimage.'+className[1]).attr('src',imageurl);
     },function(){
         $('img.mainimage.'+className[1]).attr('src',defaultImage);
     });
 });
 </script>
+
 
 
 <style>
@@ -153,7 +182,6 @@ $(function(){
   display: inline-block;
   /display: inline;
   /zoom: 1;
-  padding-right: 10px;
   width: 20%;
 
 }

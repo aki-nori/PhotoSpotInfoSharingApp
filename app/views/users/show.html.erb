@@ -1,97 +1,85 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        <%= @user.name %>
-      </h1>
-      <h2 class="subtitle">
-        <%= "@#{@user.account_name}" %>
-      </h2>
-    </div>
-  </div>
-</section>
 
-<div class="section">
-  <div class="container">
-    <div class="columns is-desktop">
-      <div class="column">
-        <div class="card">
-          <div class="card-image">
-          </div>
-          <div class="card-content">
-            <div class="columns">
 
-              <div class="column is-one-quarter">
-                <% if @user == current_user %>
-                  <%= link_to edit_user_path(@user) do %>編集
-                    <span><i class="fas fa-user-edit"></i></span>
-                  <% end %>
-                <% end %>
-
-                <div class="media", style="justify-content: center;">
-                    <figure class="image is-128x128">
-                      <% if @user.profile_image? %>
-                          <%= image_tag @user.profile_image.url, class: "is-rounded", style: "width:100%; height: 128px; object-fit: cover;"%>
-                        <% end %>
-                    </figure>
-             
-                </div>
-              </div>
-
-              <div class="column">
-                <div class="media-content">
-                  <p class="title is-4"><%= @user.name %></p>
-                  <p class="subtitle is-6">@johnsmith</p>
-                </div>
-              
-
-                <div class="content">
-                  <%= @user.introduction%>
-                  <br>
-                  <span><i class="fas fa-map-marker-alt"></i></span>
-                  <%= @user.address %>
-                </div>
-              </div>
-            </div>
-
-            <div class="section">
-              <div class="container">
-                <nav class="level is-mobile">
-                  <div class="level-item has-text-centered">
-                    <div>
-                      <p class="heading">投稿数</p>
-                      <p class="title"><%= @user.posts.count %></p>
-                    </div>
-                  </div>
-                  <div class="level-item has-text-centered">
-                    <div>
-                      <p class="heading">いいね数</p>
-                      <p class="title"><%= @like_count %></p>
-                    </div>
-                  </div>
-                  <div class="level-item has-text-centered">
-                    <div>
-                      <p class="heading">フォロワー数</p>
-                      <p class="title"><%= Relationship.where(following_id: @user.id).count %></p>
-                    </div>
-                  </div>
-                  <div class="level-item has-text-centered">
-                    <div>
-                      <p class="heading">フォロー数</p>
-                      <p class="title"><%= Relationship.where(follower_id: @user.id).count %></p>
-                    </div>
-                  </div>
-                  
-                </nav>
-              </div>
-            </div>
-
-          </div>
+  <div id="index-banner" class="parallax-container" style="z-index: 10;">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <% if false %>
+        <br><br>
+        <h1 class="header center teal-text text-lighten-2"></h1>
+        <div class="row center">
+          <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
         </div>
+        <div class="row center">
+          <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+        </div>
+        <br><br>
+        <% end %>
       </div>
     </div>
+    <div class="parallax" style="z-index: 100;"><%= image_tag @user.posts.last.images[0].url %></div>
   </div>
-</div>
+
+
+  <div class="container">
+    <div class="section">
+      
+      <div class="row">
+          <div class="col s12 m3 center-on-small-only">
+            <div class="image-container center">
+              <% if @user.profile_image? %>
+                <%= image_tag @user.profile_image.url, class: "circle user-show-user-img", style: "width: 150px; height: 150px;" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg' %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col s12 m9">
+            <h4><b><%= @user.name %></b></h4>
+            <h6>@<%= @user.account_name %></h6>
+            <p class="light"><%= @user.introduction %></p>
+          </div>
+
+          <div class="col s12">
+            <table class="user-status-table">
+              <tr>
+                <th>
+                  フォロワー
+                </td>
+                <th>
+                  フォロー
+                </th>
+                <th>
+                  投稿数
+                </th>
+                <th>
+                  行っていたい場所
+                </th>
+              </tr>
+              <tr>
+                <td>
+                   <div id="relationship-<%= @user.id %>">
+                  <%= render 'relationships/follow', user: @user %>
+                </div>
+                </td>
+                <td>
+                  <%= Relationship.where(follower_id: @user.id).count %>
+                </td>
+                <td>
+                  <%= @user.posts.count %>
+                </td>
+                <td>
+                  <%= @user.went_to_gos.count %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+    </div>
+  </div>
+
+
+
 
 
 

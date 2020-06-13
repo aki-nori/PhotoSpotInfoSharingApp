@@ -1,44 +1,42 @@
-<div class="section">
-  <div class="container">
-    <div class="columns is-desktop is-multiline">
+ <div class="container">
+  <div class="section">
+    <div class="row">
       <% posts.each do |post| %>
-        <div class="column is-one-quarter">
+        <div class="col s12 m4">
           <div class="card">
             <div class="card-image">
-              <figure class="image is-4by3">
-                <%= link_to post_path(post) do %>
-                  <% if post.images[0] %>
-                    <%= image_tag post.images[0].url, style: "object-fit: cover;" %>
-                  <% end %>
+              <%= link_to post_path(post) do %>
+                <% if post.images[0] %>
+                  <%= image_tag post.images[0].url, style: "object-fit: cover;" %>
                 <% end %>
-              </figure>
+              <% end %>
+              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
             <div class="card-content">
-              <p class="title is-4"><%= post.title %></p>
-
-              <div class="content">
-                <%= post.comment %>
-                <br>
-                <time datetime="2016-1-1"><%= post.created_at %></time>
-              </div>
-              <%= link_to user_path(post.user) do %>
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-48x48">
-                    <%= image_tag post.user.profile_image.url, class: "is-rounded", style: "width:100%; height: 48px; object-fit: cover;" %>
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4"><%= post.user.name %></p>
-                  <p class="subtitle is-6">@<%= post.user.account_name %></p>
-                </div>
-              </div>
+              <%= link_to place_path(post.place) do %>
+                <p><i class="fas fa-map-marker-alt"></i><b><%= " #{post.place.name}" %></b></p>
               <% end %>
+              <%= link_to post_path(post) do %>
+                <span class="card-title"><%= post.title %></span>
+              <% end %>
+                <p><%= post.comment %></p>
+            </div>
+            <div class="card-action">
+              <%= link_to user_path(post.user) do %>
+                <%= image_tag post.user.profile_image.url, class: "is-rounded circle responsive-img", style: "width:30px; height: 30px; object-fit: cover; float: left;" %>
+                <b><p style="margin: 0 5px; line-height: 28px; display: inline-block;"><%= post.user.name %></p></b>
+              <% end %>
+              <div style="float: right;">
+              <i class="fas fa-pen-nib"></i><%= " #{post.user.posts.count}" %>
+              <i class="fas fa-heart" style="padding-left: 4px;"></i><%= " #{Relationship.where(following_id: post.user.id).count}" %>
+              <i class="fas fa-compass" style="padding-left: 4px;"></i><%= " #{post.user.went_to_gos.count}" %>
+              </div>
             </div>
           </div>
         </div>
+      
       <% end %>
-    </div>
+    
   </div>
 </div>
 

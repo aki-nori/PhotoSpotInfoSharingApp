@@ -26,6 +26,8 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @places = Place.all
+    @place = @post.place
   end
 
   def update
@@ -41,6 +43,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :user_id, :place_id, :comment, :date, :time, :rate, :access, :notify, :url, {images: []})
+    params.require(:post).permit(:title, :user_id, :place_id, :comment, :date, :time, :rate, :access, :notify, :url, :camera, {images: []})
   end
 end
