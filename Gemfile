@@ -86,3 +86,5 @@ gem 'font-awesome-sass'
 
 # 環境変数の管理
 gem 'dotenv-rails'
+
+gem 'jquery-turbolinks'

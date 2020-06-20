@@ -23,7 +23,9 @@
             <div id="went-to-go-<%= place.id %>">
               <%= render partial: 'went_to_gos/went_to_go', locals: {place: place} %>
             </div>
-            <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>
+            <% if place.posts.last %>
+              <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>
+            <% end %>
           </div>
           <div class="card-action">
             <%= link_to "#{place.name}の投稿一覧をみる", place_path(place) %>

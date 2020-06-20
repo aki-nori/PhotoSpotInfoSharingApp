@@ -10,6 +10,7 @@ class PostsController < ApplicationController
     @places = Place.all
     
     @place = Place.find(params[:place_id])
+    @post.place_id = @place.id
   end
 
   def create
