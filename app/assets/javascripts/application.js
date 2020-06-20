@@ -12,11 +12,14 @@
 //
 //= require jquery
 //= require rails-ujs
+//= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
 //= require materialize
 
-$(document).ready(function() {
+
+
+$(document).on('turbolinks:load', function() {
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
     M.updateTextFields();
