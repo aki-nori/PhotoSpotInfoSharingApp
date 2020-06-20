@@ -1,12 +1,88 @@
-<h1>投稿編集画面</h1>
-<%= form_with model: @post do |form| %>
-  <%= form.label :title, "タイトル" %>
-  <%= form.text_field :title %>
-  <%= form.label :comment, "コメント" %>
-  <%= form.text_area :comment %>
-  <%= form.label :camera, "カメラ" %>
-  <%= form.text_field :camera %>
-  <%= form.label :images, "写真" %>
-  <%= form.file_field :images, multiple: true %>
-  <%= form.submit %>
-<% end %>
+<div class="container">
+  <div style="margin-bottom: 0px;">
+    <br>
+    <%= form_with model: @post do |f| %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :title, class: "" %>
+          <%= f.label :title, "タイトル", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, {}, {selected: @post.place.id, disabled: true} %>
+          <%= f.label :place, "場所", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.date_field :date, class: "" %>
+          <%= f.label :date, "訪問日", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.time_field :time, class: "" %>
+          <%= f.label :time, "時間", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
+          <%= f.label :rate, "オススメ度", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :access, class: "materialize-textarea" %>
+          <%= f.label :access, "アクセス方法", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :notify, class: "materialize-textarea" %>
+          <%= f.label :notify, "注意事項", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :url, class: "" %>
+          <%= f.label :url, "参考URL", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :comment, class: "materialize-textarea" %>
+          <%= f.label :comment, "コメント", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :camera, class: "materialize-textarea" %>
+          <%= f.label :camera, "機材", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <span class="">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="">
+            <%= f.label :profile_image, "写真" %>
+          </span>
+          <span class="file-name">
+              <%= f.file_field :images, multiple: true, class: "form-control-file" %>
+          </span>
+        </div>
+      </div>
+        
+        <div class="input-field col s12">
+          <%= f.button type: "submit", class: "btn waves-effect waves-light" do %>保存
+            <!-- <i class="material-icons right">send</i> -->
+          <% end %>
+          <button class="btn">キャンセル</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

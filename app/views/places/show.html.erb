@@ -1,25 +1,34 @@
-<h1>スポット詳細</h1>
-<table>
-  <tr>
-    <th>スポット名</th>
-    <td><%= @place.name %></td>
-  </tr>
-  <tr>
-    <th>geocode</th>
-    <td><%= @place.geocode %></td>
-  </tr>
-  <tr>
-    <th>info</th>
-    <td><%= @place.infomation %></td>
-  </tr>
-  <tr>
-    <th>住所</th>
-    <td><%= @place.address %></td>
-  </tr>
-</table>
-
-<div style="width: 300px;">
-<%= image_tag @place.images[0].url, style: "width: 100%; height: 100%; object-fit: contain;" %>
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <br><br>
+      <h1 class="header center teal-text text-lighten-2"></h1>
+      <div class="row center">
+        <h1 class="header col s12 light"><%= @place.name %></h1>
+      </div>
+      <br><br>
+    </div>
+  </div>
+  <div class="parallax img-wrap"><%= image_tag @place.posts.first.images[0].url, class:"img-position-center", style: "width: 100%; object-fit: contain;" %></div>
 </div>
 
-<%= link_to "編集", edit_place_path(@place) %>
+<div class="container">
+  <h5 style="text-align: center;">
+    <%= link_to new_place_post_path(@place), class: "button is-link" do %>
+      <i class="fas fa-pencil-alt">この場所で投稿する</i>
+    <% end %>
+  </h5>
+</div>
+
+<%= render partial: 'posts/index', locals: {posts: @place.posts} %>
+
+<script>
+  (function($) {
+    $(function() {
+
+        $('.sidenav').sidenav();
+        $('.parallax').parallax();
+
+    }); // end of document ready
+  })(jQuery); // end of jQuery name space
+</script>

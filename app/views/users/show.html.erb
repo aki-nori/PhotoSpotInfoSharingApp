@@ -1,29 +1,96 @@
-<h1>ユーザ詳細</h1>
-<% if @user.profile_image? %>
-  <%= image_tag @user.profile_image.url, class: "rounded-circle", style: "width: 150px; height: 150px; object-fit: cover;" %>
-<% end %>
+<div id="index-banner" class="parallax-container" style="z-index: 10;">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <% if false %>
+      <br><br>
+      <h1 class="header center teal-text text-lighten-2"></h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+      </div>
+      <div class="row center">
+        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+      </div>
+      <br><br>
+      <% end %>
+    </div>
+  </div>
+  <div class="parallax" style="z-index: 100;"><%= image_tag @user.back_image.url, style: "width: 100%; object-fit: contain;" %></div>
+</div>
 
-<table>
-<tr>
-<th>名前</th>
-<td><%= @user.name %></td>
-</tr>
-<tr>
-<th>自己紹介</th>
-<td><%= @user.introduction%></td>
-</tr>
-<tr>
-<th>住んでるところ</th>
-<td><%= @user.address %></td>
-</tr>
-</table>
 
+<div class="container">
+  <div class="section">
+    
+    <div class="row">
+        <div class="col s12 m3 center-on-small-only">
+          <div class="image-container center">
+            <% if @user.profile_image? %>
+              <%= image_tag @user.profile_image.url, class: "circle user-show-user-img", style: "width: 150px; height: 150px;" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col s12 m9">
+          <h4><b><%= @user.name %></b></h4>
+          <h6>@<%= @user.account_name %></h6>
+          <p class="light"><%= @user.introduction %></p>
+          <% if @user == current_user %>
+            <%= link_to "編集", edit_user_path(@user) %>
+            <%= link_to "/ ログアウト", destroy_user_session_path, method: :delete %>
+          <% end %>
+        </div>
 
-<br>
-<%= link_to "プロフィール編集", edit_user_path(@user) %>
-<br>
-<%= link_to "新規投稿", new_post_path %>
-<br>
-<%= link_to "すべての投稿をみる", posts_path%>
-<br>
-<%= link_to "スポット登録", new_place_path %>
+        <div class="col s12">
+          <table class="user-status-table">
+            <tr>
+              <th>
+                フォロワー
+              </td>
+              <th>
+                フォロー
+              </th>
+              <th>
+                投稿数
+              </th>
+              <th>
+                <i class="fas fa-map"> 行ってみたい場所</i>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <div id="relationship-<%= @user.id %>">
+                  <%= render 'relationships/follow', user: @user %>
+                </div>
+              </td>
+              <td>
+                <%= Relationship.where(follower_id: @user.id).count %>
+              </td>
+              <td>
+                <%= @user.posts.count %>
+              </td>
+              <td>
+                <%= link_to user_went_to_gos_path(@user) do %>
+                  <%= @user.went_to_gos.count %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<%= render partial: 'posts/index', locals: {posts: @posts} %>
+
+<script>
+  (function($) {
+      $(function() {
+
+          $('.sidenav').sidenav();
+          $('.parallax').parallax();
+
+      }); // end of document ready
+  })(jQuery); // end of jQuery name space
+</script>

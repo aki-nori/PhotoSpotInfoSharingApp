@@ -5,8 +5,7 @@ ruby '2.5.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -39,6 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'sqlite3'
 end
 
 group :development do
@@ -52,6 +52,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
+  gem 'pry-nav'
 end
 
 group :test do
@@ -62,6 +63,10 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+group :production do
+  gem 'pg'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -70,8 +75,14 @@ gem 'devise'
 
 # 画像データのアップロード
 gem 'carrierwave'
+gem 'rmagick'
 # CSSフレームワーク
-gem 'bulma-rails'
+# gem 'bulma-rails'
+gem 'materialize-sass', '~> 1.0.0'
+gem 'material_icons' 
 
 gem 'jquery-rails'
 gem 'font-awesome-sass'
+
+# 環境変数の管理
+gem 'dotenv-rails'

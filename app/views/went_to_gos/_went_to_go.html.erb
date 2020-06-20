@@ -1,0 +1,41 @@
+<% if user_signed_in? %>
+
+  <% unless place.went_to_go_user(current_user.id).blank? %>
+    <%= link_to place_went_to_go_path(place_id: place.id, id: place.went_to_go_user(current_user.id)), method: :delete, remote: true do %>
+      <div class="vertical_like">
+        <i class="fas fa-map"></i>
+        <span class="red-text">
+          <%= place.went_to_gos.count %>
+        </span>
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to place_went_to_gos_path(place.id), method: :post, remote: true do %>
+      <div class="vertical_like">
+        <i class="far fa-map"></i>
+        <span class="grey-text text-darken-2">
+          <%= place.went_to_gos.count %>
+        </span>
+      </div>
+    <% end %>
+  <% end %>
+
+<% else %>
+
+  <% if place.went_to_gos.count > 0 %>
+    <div class="vertical_like">
+      <i class="fas fa-map"></i>
+      <span class="red-text">
+        <%= place.went_to_gos.count %>
+      </span>
+    </div>
+  <% else %>
+    <div class="vertical_like">
+      <i class="far fa-map"></i>
+      <span class="grey-text text-darken-2">
+        <%= place.went_to_gos.count %>
+      </span>
+    </div>
+  <% end %>
+
+<% end %>

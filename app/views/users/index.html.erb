@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="section">
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image" style="height: 200px;">
+              <%= link_to user_path(user) do %>
+                <%= image_tag user.back_image.url, style: "object-fit: cover; width: 100%; height: 100%;" %>
+              <% end %>
+              <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+            </div>
+            <div class="card-content" style="height: 200px;">
+              <%= link_to user_path(user) do %>
+                <%= image_tag user.profile_image.url, class: "is-rounded circle responsive-img", style: "width:70px; height: 70px; object-fit: cover; float: left; margin-right: 20px;" %>
+                <span class="card-title"><%= user.name %></span>
+              <% end %>
+              <%= link_to user_path(user) do %>
+                <p><i class="fas fa-map-marker-alt"></i><b><%= " #{user.account_name}" %></b></p>
+              <% end %>
+                <p><%= user.introduction %></p>
+                <div style="float: right;">
+                  <i class="fas fa-pen-nib"></i><%= " #{user.posts.count}" %>
+                  <i class="fas fa-heart" style="padding-left: 4px;"></i><%= " #{Relationship.where(following_id: user.id).count}" %>
+                  <i class="fas fa-compass" style="padding-left: 4px;"></i><%= " #{user.went_to_gos.count}" %>
+                </div>
+            </div>
+          </div>
+        </div>
+      
+      <% end %>
+    
+  </div>
+</div>
+

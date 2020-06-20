@@ -1,10 +1,190 @@
-<h1>投稿詳細</h1>
-<p>タイトル</p>
-<%= @post.title %>
-<p>コメント</p> 
-<%= @post.comment %>
-<div style="width: 300px;">
-<%= image_tag @post.images[0].url, style: "width: 100%; height: 100%; object-fit: contain;" %>
+<div class="container">
+  <div class="row">
+    <div class="col m12">
+      <h4>
+        <%= @post.title %>
+        <%= link_to edit_post_path(@post) do %>
+        <i class="fas fa-edit"></i>
+        <% end %>
+      </h4>
+      <%= link_to place_path(@post.place) do %>
+        <h5><i class="fas fa-map-marker-alt"></i><b><%= @post.place.name %></b></h5>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div style="justify-content: center;">
+      <figure class="image">
+        <div class="main_image_box">
+          <%= image_tag @post.images[0].url, class: "mainimage img01", style: "max-height: 600px; min-height: 400px; width: 100%; object-fit: contain;" %>
+        </div>	
+      </figure>
+    </div>
+  </div>
+
+  <div class="row">
+    <ul class="subimage img01">
+      <% @post.images.each do |image| %>
+        <div class="col s3">
+          <%= image_tag image.url, style: "width: 100%; object-fit: contain;" %>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+
+
+  <div class="divider"></div>
+
+  <div class="row">
+    <table class="striped">
+      <tbody>
+        <tr>
+          <th>
+            <span><i class="fas fa-calendar-alt"></i> 訪問日</span>
+          </th>
+          <td>
+              <%= @post.date.strftime("%Y年%m月%d日 %a") %>
+              <% if @post.time.present? %>
+                <span style="padding-left: 10px;">
+                  <%= @post.time.strftime("%H:%M %P") %>
+                </span>
+              <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-star"></i> オススメ度</span>
+          </th>
+          <td>
+            <% case @post.rate.to_i %>
+            <% when 1 %>
+              ★
+            <% when 2 %>
+              ★★
+            <% when 3 %>
+              ★★★
+            <% when 4 %>
+              ★★★★
+            <% when 5 %>
+              ★★★★★
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-train"></i> アクセス</span>
+          </th>
+          <td>
+            <%= @post.access %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-exclamation-circle"></i> 注意事項</span>
+          </th>
+          <td>
+            <%= @post.notify %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-link"></i> URL</span>
+          </th>
+          <td>
+            <%= link_to @post.url, @post.url %>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-camera"></i> カメラ</span>
+          </th>
+          <td>
+            <%= @post.camera %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><%= @post.comment %></p>
+  
+  <div class="divider"></div>
+
+  <div class="center" style="margin: 20px 0;">
+    <h3 style="margin: 0;">
+      <div id="likes_buttons_<%= @post.id %>">
+        <%= render partial: 'likes/like', locals: {post: @post} %>
+      </div>
+    </h3>
+    <br>
+    <h3 style="margin: 0; display: inline-block;">
+      <div id="went-to-go-<%= @post.place.id %>">
+        <%= render partial: 'went_to_gos/went_to_go', locals: {place: @post.place} %>
+      </div>
+    </h3>
+  </div>
+
+  <div class="divider"></div>
+  
+  <br>
+
+  <div id="comment">
+    <%= render partial: 'comments/index', locals: {post: @post, comment: @comment} %>
+  </div>
+
 </div>
 
-<%= link_to "編集", edit_post_path(@post) %>
+
+
+
+
+
+<script>
+$(function(){
+    $('.subimage .col').hover(function(){
+        //オーバーしたliのインデックスを取得
+        var index = $('.subimage .col').index(this);
+
+        //オーバーした画像URLを取得
+        var imageurl = $('.subimage .col').eq(index).find('img').attr('src');
+
+        //ulのクラス名を取得（空白で分割）
+        className = $(this).parent().attr('class').split(" ");
+
+        //元のメイン画像を保存しておく
+        defaultImage = $('img.mainimage.'+className[1]).attr('src');
+
+        $('img.mainimage.'+className[1]).attr('src',imageurl);
+    },function(){
+        $('img.mainimage.'+className[1]).attr('src',defaultImage);
+    });
+});
+</script>
+
+
+
+<style>
+.detail {
+  display: flex;
+  justify-content: center;
+}
+
+.detail ul{
+    
+    text-align: center;
+    
+  
+}
+.detail li{
+
+  display: -moz-inline-box;
+  display: inline-block;
+  /display: inline;
+  /zoom: 1;
+  width: 20%;
+
+}
+
+
+</style>

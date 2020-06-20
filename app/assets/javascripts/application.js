@@ -14,4 +14,10 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//= require materialize
+
+$(document).ready(function() {
+    $(".dropdown-trigger").dropdown();
+    $('select').formSelect();
+    M.updateTextFields();
+});

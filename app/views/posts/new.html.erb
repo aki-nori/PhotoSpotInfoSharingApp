@@ -1,36 +1,90 @@
-<h1>投稿画面</h1>
-<%= form_with model: @post do |f| %>
-  <div class="form-group">
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-control" %>
+<div class="container">
+  <div style="margin-bottom: 0px;">
+    <br>
+    <%= form_with model: @post do |f| %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :title, class: "" %>
+          <%= f.label :title, "タイトル" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+            <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, selected: @place.id %>
+            <%= f.label :place, "場所" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.date_field :date, class: "" %>
+          <%= f.label :date, "訪問日", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.time_field :time, class: "" %>
+          <%= f.label :time, "時間", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
+          <%= f.label :rate, "オススメ度", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :access, class: "materialize-textarea" %>
+          <%= f.label :access, "アクセス方法", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :notify, class: "materialize-textarea" %>
+          <%= f.label :notify, "注意事項", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :url, class: "" %>
+          <%= f.label :url, "参考URL", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :comment, class: "materialize-textarea" %>
+          <%= f.label :comment, "コメント", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :camera, class: "materialize-textarea" %>
+          <%= f.label :camera, "機材", class: "" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <span class="">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="">
+            <%= f.label :profile_image, "写真" %>
+          </span>
+          <span class="file-name">
+              <%= f.file_field :images, multiple: true, class: "form-control-file" %>
+          </span>
+        </div>
+      </div>
+        
+        <div class="input-field col s12">
+          <%= f.button type: "submit", class: "btn waves-effect waves-light" do %>保存
+            <!-- <i class="material-icons right">send</i> -->
+          <% end %>
+          <% if false %>
+            <button class="button is-link is-light">Cancel</button>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.label :place, "場所" %>
-    <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :comment, "コメント" %>
-    <%= f.text_area :comment, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :date, "日にち" %>
-    <%= f.date_select :date, class: "form-control" %>
-  </div>
-   <div class="form-group">
-    <%= f.label :time, "時間" %>
-    <%= f.time_select :time, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :rate, "お気に入り度" %>
-    <%= f.select :rate, [["★", 1], ["★★", 2], ["★★★", 3], ["★★★★", 4], ["★★★★★", 5]], class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :images, "写真" %>
-    <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-  </div>
-  <%= f.submit "投稿", class: "btn btn-primary" %>
-<% end %>
+</div>

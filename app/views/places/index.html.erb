@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="section">
+    
+    <div class="row">
+      <div id='map'></div>
+    </div>
+
+    <div class="row">
+    <% @places.order(created_at: "DESC").each do |place| %>
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-image">
+            <% if place.posts.present? %>
+              <%= link_to place_path(place) do %>
+                <%= image_tag place.posts.first.images[0].url, style: "object-fit: cover; height: 250px;" %>
+              <% end %>
+            <% end %>
+            <span class="card-title">
+              <%= place.name %>
+            </span>
+          </div>
+          <div class="card-content" sytle="height: 250px;">
+            <div id="went-to-go-<%= place.id %>">
+              <%= render partial: 'went_to_gos/went_to_go', locals: {place: place} %>
+            </div>
+            <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>
+          </div>
+          <div class="card-action">
+            <%= link_to "#{place.name}の投稿一覧をみる", place_path(place) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+
+<!-- スポットデータ受け渡し用 -->
+<input name="spot_data" type="hidden" value=<%= @posts_data_json %> class="spot_data"/>
+
+<style>
+#map{
+  height: 400px;
+}
+</style>
+
+<!-- Googleマップを利用するためのスクリプト -->
+<%= javascript_include_tag 'googlemap.js' %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap" async defer></script>
+
