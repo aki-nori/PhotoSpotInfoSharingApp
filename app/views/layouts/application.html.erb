@@ -10,29 +10,49 @@
   </head>
 
   <body>
+    <!-- ログイン時のnavセレクトボックス -->
+    <% if user_signed_in? %>
+    <ul id="dropdown1" class="dropdown-content">
+    <li><%= link_to "投稿する", new_place_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to "マイページ", user_path(current_user) %></li>
+      <li><%= link_to "行きたいところ", user_went_to_gos_path(current_user) %></li>
+      <li class="divider"></li>
+      <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+    </ul>
+    <% end %>
     <nav class="white" role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo">
           <%= image_tag "fotopo_logo.png", alt: "FOTOPO icon", id: "pic1", class: "brand-logo", style: "width: 270px; margin: 11px;" %>
         </a>
+
         <%# ↓brand-logoクラスをつけないとuser/showなどの画像表示が崩れる %>
         <ul class="right hide-on-med-and-down brand-logo">
-          <li class="">
-            <%= link_to root_path do %>
-            <i class="fas fa-home" style=""></i>HOME
-            <% end %>
-          </li>
-          <li>
-            <%= link_to places_path do %>
-              <i class="fas fa-map-marker-alt"></i>スポット
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_place_path, class: "navbar-item"  do %>
-              <i class="fas fa-images"></i>投稿
-            <% end %>
-          </li>
-
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to places_path do %>
+                <i class="fas fa-map-marker-alt"></i>スポット
+              <% end %>
+            </li>
+            <li>
+              <%= link_to users_path, class: "navbar-item"  do %>
+                <i class="fas fa-user-friends"></i>ユーザー
+              <% end %>
+            </li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><%= current_user.name %><i class="material-icons right">arrow_drop_down</i></a></li>
+          <% else %>
+            <li>
+              <%= link_to new_user_session_path do %>
+              <i class="fas fa-sign-in-alt"></i></i>ログイン
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path do %>
+              <i class="fas fa-user-plus"></i></i>新規登録
+              <% end %>
+            </li>
+          <% end %>
         </ul>
 
         <ul id="nav-mobile" class="sidenav">
@@ -72,3 +92,8 @@
     </footer>
   </body>
 </html>
+
+
+<script>
+  $(".dropdown-trigger").dropdown();
+</script>
