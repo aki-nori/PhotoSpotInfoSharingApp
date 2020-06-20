@@ -20,4 +20,5 @@ class User < ApplicationRecord
   end
 
   mount_uploader :profile_image, ImageUploader
+  mount_uploader :back_image, ImageUploader
 end

@@ -1,53 +1,35 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        ユーザー一覧
-      </h1>
-      <h2 class="subtitle">
-        ユーザーをみつける
-      </h2>
-    </div>
-  </div>
-</section>
-
-
-<div class="section">
-  <div class="container">
-    <div class="columns is-multiline">
+<div class="container">
+  <div class="section">
+    <div class="row">
       <% @users.each do |user| %>
-        <div class="column is-one-quarter">
+        <div class="col s12 m4">
           <div class="card">
-            <div class="card-content">
-              <div class="media", style="justify-content: center;">
-                <%= link_to user_path(user) do %>
-                  <figure class="image is-128x128">
-                    <% if user.profile_image? %>
-                      <%= image_tag user.profile_image.url, class: "is-rounded", style: "width:100%; height: 128px; object-fit: cover;"%>
-                    <% else %>
-                      <%= image_tag 'no_image.jpg' %>
-                    <% end %>
-                  </figure>
-                <% end %>
-              </div>
-              <div class="media-content">
-                <p class="title is-4"><%= user.name %></p>
-                <p class="subtitle is-6">@johnsmith</p>
-              </div>
-              <div class="content">
-                <%= user.introduction%>
-                <br>
-                <span><i class="fas fa-map-marker-alt"></i></span>
-                <%= user.address %>
-                <div id="relationship-<%= user.id %>">
-                  <%= render 'relationships/follow', user: user %>
+            <div class="card-image" style="height: 200px;">
+              <%= link_to user_path(user) do %>
+                <%= image_tag user.back_image.url, style: "object-fit: cover; width: 100%; height: 100%;" %>
+              <% end %>
+              <!-- <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+            </div>
+            <div class="card-content" style="height: 200px;">
+              <%= link_to user_path(user) do %>
+                <%= image_tag user.profile_image.url, class: "is-rounded circle responsive-img", style: "width:70px; height: 70px; object-fit: cover; float: left; margin-right: 20px;" %>
+                <span class="card-title"><%= user.name %></span>
+              <% end %>
+              <%= link_to user_path(user) do %>
+                <p><i class="fas fa-map-marker-alt"></i><b><%= " #{user.account_name}" %></b></p>
+              <% end %>
+                <p><%= user.introduction %></p>
+                <div style="float: right;">
+                  <i class="fas fa-pen-nib"></i><%= " #{user.posts.count}" %>
+                  <i class="fas fa-heart" style="padding-left: 4px;"></i><%= " #{Relationship.where(following_id: user.id).count}" %>
+                  <i class="fas fa-compass" style="padding-left: 4px;"></i><%= " #{user.went_to_gos.count}" %>
                 </div>
-              </div>
             </div>
           </div>
         </div>
+      
       <% end %>
-    </div>
+    
   </div>
 </div>
 

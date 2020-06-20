@@ -3,6 +3,8 @@
     <div class="col s2 center">
       <% if current_user.profile_image? %>
         <%= image_tag comment.user.profile_image.url, class: "circle", style: "width:50px; height: 50px; object-fit: cover; margin: 20px;" %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', class: "circle", style: "width:50px; height: 50px; object-fit: cover; margin: 20px;" %>
       <% end %>
     </div>
     <div class="col s10">
@@ -13,7 +15,9 @@
         <% end %>
       <% end %>
       </div>
-      <span style="font-size: 80%;"><b><%= comment.user.name %></b></span>
+      <span style="font-size: 80%;"><b>
+        <%= link_to comment.user.name, user_path(comment.user) %></b>
+      </span>
       <p><%= comment.body %></p>
       
       <span style="font-size: 80%; color: #AAA"><%= time_ago_in_words(comment.created_at) %></span>
@@ -31,9 +35,9 @@
 <div class="row" style="margin: 0;">
   <div class="col s2 center" style="padding:20px;">
     <% if current_user.profile_image? %>
-      <%= image_tag current_user.profile_image.url, class: "circle", style: "width:50px; height: 50px; object-fit: cover;"%>
+      <%= image_tag current_user.profile_image.url, class: "circle", style: "width:50px; height: 50px; object-fit: cover;" %>
     <% else %>
-      <%= image_tag 'no_image.jpg' %>
+      <%= image_tag 'no_image.jpg', class: "circle", style: "width:50px; height: 50px; object-fit: cover;" %>
     <% end %>
   </div>
   <div class="input-field col s10">

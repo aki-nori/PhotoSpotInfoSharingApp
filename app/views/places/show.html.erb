@@ -1,57 +1,34 @@
-<div class="section">
-  <div class="container">
-    <div class="example">
-      <figure class="image">
-        <div class="img-wrap">
-        <% if @place.posts.present? %>
-          <%= image_tag @place.posts.first.images[0].url, style: "width: 100%; height: 400px; object-fit: cover; " %>
-        <% end %>
-        </div>
-      </figure>
-      <p class="is-large"><%= @place.name %></p>
-    </div>
-    <div id="went-to-go-<%= @place.id %>">
-      <%= render partial: 'went_to_gos/went_to_go', locals: {place: @place} %>
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <br><br>
+      <h1 class="header center teal-text text-lighten-2"></h1>
+      <div class="row center">
+        <h1 class="header col s12 light"><%= @place.name %></h1>
+      </div>
+      <br><br>
     </div>
   </div>
+  <div class="parallax img-wrap"><%= image_tag @place.posts.first.images[0].url, class:"img-position-center", style: "width: 100%; object-fit: contain;" %></div>
 </div>
 
-<div class="control has-text-centered">
-  <%= link_to "この場所で投稿する", new_place_post_path(@place), class: "button is-link" %>
+<div class="container">
+  <h5 style="text-align: center;">
+    <%= link_to new_place_post_path(@place), class: "button is-link" do %>
+      <i class="fas fa-pencil-alt">この場所で投稿する</i>
+    <% end %>
+  </h5>
 </div>
 
-    <%= render partial: 'posts/index', locals: {posts: @place.posts} %>
-  
+<%= render partial: 'posts/index', locals: {posts: @place.posts} %>
 
-<style>
-.example {
-  position: relative;
-  }
+<script>
+  (function($) {
+    $(function() {
 
-.example p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%,-50%);
-  -webkit-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  margin:0;
-  padding:0;
-  font-size: 10vmin;
-  color: white;
-  font-weight: bold;
-  }
+        $('.sidenav').sidenav();
+        $('.parallax').parallax();
 
-.example img {
-  width: 100%;
-  }
-
-.img-wrap {
-  background-color: #000000;
-}
-.img-wrap img {
-  display: block;
-  opacity: 0.7;
-}
-</style>
-
+    }); // end of document ready
+  })(jQuery); // end of jQuery name space
+</script>

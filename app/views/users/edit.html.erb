@@ -1,58 +1,62 @@
-<div class="section">
-  <div class="container">
-    <div class="columns">
-      <%= form_with model: @user do |f| %>
-        <div class="column">
-          <div class="field">
-            <%= f.label :name, "ユーザ名", class: "label" %>
-            <div class="control has-icons-left">
-              <%= f.text_field :name, class: "input" %>
-              <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-              </span>
-            </div>
-          </div>
-          <div class="field">
-            <%= f.label :introduction, "自己紹介", class: "label" %>
-            <div class="control">
-              <%= f.text_area :introduction, class: "textarea" %>
-            </div>
-          </div>
-          <div class="field">
-            <%= f.label :address, "すんでいるところ", class: "label" %>
-            <div class="control">
-              <%= f.text_field :address, class: "input" %>
-            </div>
-          </div>
-          <div class="field">
-            <div class="file has-name">
-              <label class="file-label">
-                <input class="file-input" type="file" name="resume">
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fas fa-upload"></i>
-                  </span>
-                  <span class="file-label">
-                    <%= f.label :profile_image, "アイコン画像" %>
-                  </span>
-                </span>
-                <span class="file-name">
-                  <%= f.file_field :profile_image %>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <div class="field is-grouped">
-            <div class="control">
-              <%= f.submit "保存", class: "button is-link" %>
-            </div>
-            <div class="control">
-              <button class="button is-link is-light">Cancel</button>
-            </div>
-          </div>
-        </div>
-      <% end %>
+<div class="container">
+  <br>
+  <%= form_with model: @user do |f| %>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :name %>
+        <%= f.label :name, "ユーザ名", class: "active" %>
+      </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_area :introduction, class: "materialize-textarea"  %>
+        <%= f.label :introduction, "自己紹介", class: "active" %>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :address %>
+        <%= f.label :address, "すんでいるところ", class: "active" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <span class="file-icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span class="file-label">
+          <%= f.label :profile_image, "アイコン画像" %>
+        </span>
+        <span class="file-name">
+          <%= f.file_field :profile_image %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12"> 
+        <span class="file-icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span class="file-label">
+          <%= f.label :back_image, "背景画像" %>
+        </span>
+        </span>
+        <span class="file-name">
+          <%= f.file_field :back_image %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12"> 
+        <%= f.button type: "submit", class: "btn waves-effect waves-light" do %>保存<% end %>
+        <button class="btn">キャンセル</button>
+      </div>
+    </div>
+  <% end %>
 </div>
