@@ -22,5 +22,6 @@
 $(document).on('turbolinks:load', function() {
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
+    $('.sidenav').sidenav();
     M.updateTextFields();
 });
