@@ -26,8 +26,6 @@
           <div class="image-container center">
             <% if @user.profile_image? %>
               <%= image_tag @user.profile_image.url, class: "circle user-show-user-img", style: "width: 150px; height: 150px;" %>
-            <% else %>
-              <%= image_tag 'no_image.jpg' %>
             <% end %>
           </div>
         </div>
