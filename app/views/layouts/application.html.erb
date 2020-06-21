@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
   </head>
 
   <body>
@@ -56,7 +57,46 @@
         </ul>
 
         <ul id="nav-mobile" class="sidenav">
-          <li><a href="#">Navbar Link</a></li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to places_path do %>
+                <i class="fas fa-map-marker-alt"></i>スポット
+              <% end %>
+            </li>
+            <li>
+              <%= link_to users_path, class: "navbar-item"  do %>
+                <i class="fas fa-user-friends"></i>ユーザー
+              <% end %>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <%= link_to new_place_path, class: "navbar-item" do %>
+                投稿する
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_path(current_user), class: "navbar-item" do %>
+                マイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to "行きたいところ", user_went_to_gos_path(current_user) %>
+            </li>
+            <li class="divider"></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+          </ul>
+          <% else %>
+            <li>
+              <%= link_to new_user_session_path do %>
+              <i class="fas fa-sign-in-alt"></i></i>ログイン
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path do %>
+              <i class="fas fa-user-plus"></i></i>新規登録
+              <% end %>
+            </li>
+          <% end %>
         </ul>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       </div>
