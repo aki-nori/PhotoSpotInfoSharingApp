@@ -64,6 +64,12 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
+          <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "" %>
+          <%= f.label :tag_list, "タグ", class: "active" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
           <span class="">
             <i class="fas fa-upload"></i>
           </span>

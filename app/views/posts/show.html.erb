@@ -103,6 +103,14 @@
             <%= @post.camera %>
           </td>
         </tr>
+        <tr>
+          <th>
+            <span><i class="fas fa-tags"></i> タグ</span>
+          </th>
+          <td>
+            <%= render 'posts/tag_list', tag_list: @post.tag_list %>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
