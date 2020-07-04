@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  acts_as_taggable
+
   has_many :likes
   has_many :comments
   # has_many :tag_for_posts
