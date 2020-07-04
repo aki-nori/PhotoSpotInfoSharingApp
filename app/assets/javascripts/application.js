@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require activestorage
 //= require materialize
+//= require_tree .
 
 
 

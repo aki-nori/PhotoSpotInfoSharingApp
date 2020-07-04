@@ -6,7 +6,7 @@ class WentToGosController < ApplicationController
   # 行ってみたいスポット
   def index
     @user = User.find(params[:user_id])
-    went_to_gos = user.went_to_gos
+    went_to_gos = @user.went_to_gos
     @places = Place.where(id: went_to_gos.map{|go| go.place_id})
 
     @posts_data_arr = []

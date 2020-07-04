@@ -72,15 +72,15 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>写真</span>
+          <span class="">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="">
+            <%= f.label :profile_image, "写真" %>
+          </span>
+          <span class="file-name">
               <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
+          </span>
         </div>
       </div>
         
