@@ -33,44 +33,53 @@
           <h4><b><%= @user.name %></b></h4>
           <h6>@<%= @user.account_name %></h6>
           <p class="light"><%= @user.introduction %></p>
-          <% if @user == current_user %>
-            <%= link_to "編集", edit_user_path(@user) %>
-            <%= link_to "/ ログアウト", destroy_user_session_path, method: :delete %>
-          <% end %>
+          <div class="right">
+            <% if @user == current_user %>
+              <%= link_to edit_user_path(@user) do %>
+                <i class="fas fa-edit"></i>プロフィールを編集
+              <% end %>
+            <% end %>
+          </div>
         </div>
 
-        <div class="col s12">
-          <table class="user-status-table">
+        <div class="col s12" style="margin-top: 20px;">
+          <table class="user-status-table" style="table-layout: fixed;">
             <tr>
-              <th>
-                フォロワー
+              <th style="font-size: 80%;">
+                <i class="fas fa-heart"></i><br>フォロワー
               </td>
-              <th>
-                フォロー
+              <th style="font-size: 80%;">
+                <i class="fas fa-heart"></i><br>フォロー
               </th>
-              <th>
-                投稿数
+              <th style="font-size: 80%;">
+                <i class="fas fa-pencil-alt"></i><br>投稿
               </th>
-              <th>
-                <i class="fas fa-map"> 行ってみたい場所</i>
+              <th style="font-size: 80%;">
+                <i class="fas fa-map"></i><br>行きたい<br>スポット
               </th>
             </tr>
             <tr>
-              <td>
+              <td class="icon-none">
                 <div id="relationship-<%= @user.id %>">
                   <%= render 'relationships/follow', user: @user %>
                 </div>
               </td>
               <td>
-                <%= Relationship.where(follower_id: @user.id).count %>
+                <h5>
+                  <%= Relationship.where(follower_id: @user.id).count %>
+                </h5>
               </td>
               <td>
-                <%= @user.posts.count %>
+                <h5>
+                  <%= @user.posts.count %>
+                </h5>
               </td>
               <td>
-                <%= link_to user_went_to_gos_path(@user) do %>
-                  <%= @user.went_to_gos.count %>
-                <% end %>
+                <h5>
+                  <%= link_to user_went_to_gos_path(@user) do %>
+                    <%= @user.went_to_gos.count %>
+                  <% end %>
+                </h5>
               </td>
             </tr>
           </table>

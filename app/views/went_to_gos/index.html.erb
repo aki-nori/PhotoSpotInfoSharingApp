@@ -1,36 +1,33 @@
 <div class="container">
   <div class="section">
-    
-    <div class="row">
-      <div id='map'></div>
-    </div>
-
-    <div class="row">
-    <% @places.order(created_at: "DESC").each do |place| %>
-      <div class="col s12 m6">
-        <div class="card">
-          <div class="card-image">
-            <% if place.posts.present? %>
-              <%= link_to place_path(place) do %>
-                <%= image_tag place.posts.first.images[0].url, style: "object-fit: cover; height: 250px;" %>
-              <% end %>
+    <% if @places.empty? %>
+      <div class="row">
+        <% if @user == current_user %>
+          <div class="center">
+            <b>行きたいスポットがまだありません。</b><br>
+            <%= link_to places_path do %>
+              <b>探してみる！</b>
             <% end %>
-            <span class="card-title">
-              <%= place.name %>
-            </span>
           </div>
-          <div class="card-content" sytle="height: 250px;">
-            <div id="went-to-go-<%= place.id %>">
-              <%= render partial: 'went_to_gos/went_to_go', locals: {place: place} %>
-            </div>
-            <p datetime="2016-1-1">最新の投稿<%= place.posts.last.created_at %></p>
-          </div>
-          <div class="card-action">
-            <%= link_to "投稿一覧をみる", place_path(place) %>
-          </div>
+        <% end %>
+        <div class="center">
+          <b>行きたいスポットがまだありません。</b>
         </div>
       </div>
+    <% else %>
+      <div class="row">
+        <div id='map'></div>
+      </div>
+      <div class="row">
+        <% @places.order(created_at: "DESC").each do |place| %>
+          <div class="col s12 m6">
+            <%= render partial: 'places/index', locals: {place: place} %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
+  </div>
+</div>
 
 
 <!-- スポットデータ受け渡し用 -->

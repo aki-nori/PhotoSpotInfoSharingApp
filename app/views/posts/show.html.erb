@@ -3,9 +3,6 @@
     <div class="col m12">
       <h4>
         <%= @post.title %>
-        <%= link_to edit_post_path(@post) do %>
-        <i class="fas fa-edit"></i>
-        <% end %>
       </h4>
       <%= link_to place_path(@post.place) do %>
         <h5><i class="fas fa-map-marker-alt"></i><b><%= @post.place.name %></b></h5>
@@ -33,7 +30,6 @@
     </ul>
   </div>
 
-
   <div class="divider"></div>
 
   <div class="row">
@@ -44,12 +40,14 @@
             <span><i class="fas fa-calendar-alt"></i> 訪問日</span>
           </th>
           <td>
+            <% if @post.date.present? %>
               <%= @post.date.strftime("%Y年%m月%d日 %a") %>
-              <% if @post.time.present? %>
-                <span style="padding-left: 10px;">
-                  <%= @post.time.strftime("%H:%M %P") %>
-                </span>
-              <% end %>
+            <% end %>
+            <% if @post.time.present? %>
+              <span style="padding-left: 10px;">
+                <%= @post.time.strftime("%H:%M %P") %>
+              </span>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -116,37 +114,45 @@
   </div>
 
   <p><%= @post.comment %></p>
-  
-  <div class="divider"></div>
 
-  <div class="center" style="margin: 20px 0;">
-    <h3 style="margin: 0;">
-      <div id="likes_buttons_<%= @post.id %>">
-        <%= render partial: 'likes/like', locals: {post: @post} %>
-      </div>
-    </h3>
-    <br>
-    <h3 style="margin: 0; display: inline-block;">
-      <div id="went-to-go-<%= @post.place.id %>">
-        <%= render partial: 'went_to_gos/went_to_go', locals: {place: @post.place} %>
-      </div>
-    </h3>
+  <div class="right" style="margin-bottom: 40px;">
+    <%= link_to edit_post_path(@post) do %>
+      <i class="fas fa-edit"></i>投稿内容を編集
+    <% end %>
   </div>
 
+  <table class="centered" style="table-layout: fixed;">
+    <thead>
+      <tr>
+          <th>いいね</th>
+          <th>行ってみたいスポット</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          <div id="likes_buttons_<%= @post.id %>">
+            <%= render partial: 'likes/like', locals: {post: @post} %>
+          </div>
+        </td>
+        <td>
+          <div id="went-to-go-<%= @post.place.id %>">
+            <%= render partial: 'went_to_gos/went_to_go', locals: {place: @post.place} %>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="divider"></div>
-  
+  <h5>コメント</h5>
   <br>
 
   <div id="comment">
     <%= render partial: 'comments/index', locals: {post: @post, comment: @comment} %>
   </div>
-
 </div>
-
-
-
-
-
 
 <script>
 $(function(){

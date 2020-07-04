@@ -2,6 +2,7 @@
   <div style="margin-bottom: 0px;">
     <br>
     <%= form_with model: @post do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
         <div class="input-field col s12">
           <%= f.text_field :title, class: "" %>
@@ -11,7 +12,7 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, {}, {selected: @post.place.id, disabled: true} %>
-          <%= f.label :place, "場所" %>
+          <%= f.label :place_id, "場所" %>
         </div>
       </div>
       <div class="row">
@@ -70,15 +71,15 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <span class="">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="">
-            <%= f.label :profile_image, "写真" %>
-          </span>
-          <span class="file-name">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>写真</span>
               <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-          </span>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
         </div>
       </div>
         

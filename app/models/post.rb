@@ -14,4 +14,14 @@ class Post < ApplicationRecord
   end
 
   mount_uploaders :images, ImageUploader
+
+  # バリデーション
+  validates :title, presence: true
+  validates :title, length: { in: 1..30 } 
+
+  validates :user_id, presence: true
+  validates :place_id, presence: true
+  validates :images, presence: true
+  validates :title, presence: true
+  validates :comment, presence: true
 end

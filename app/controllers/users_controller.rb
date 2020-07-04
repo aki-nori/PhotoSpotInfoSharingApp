@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    
     @like_count_array = @user.posts.map{|post| post.likes.count}
     @like_count = @like_count_array.sum
   end

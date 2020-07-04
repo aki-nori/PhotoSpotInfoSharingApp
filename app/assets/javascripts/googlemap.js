@@ -3,6 +3,7 @@ var marker = [];
 var infoWindow = [];
 var markerData = JSON.parse($('.spot_data').val());
 
+
 function initMap() {
     // 地図の作成
     var mapLatLng = new google.maps.LatLng({ lat: markerData[0]['lat'], lng: markerData[0]['lng'] }); // 緯度経度のデータ作成

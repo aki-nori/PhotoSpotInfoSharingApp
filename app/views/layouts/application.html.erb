@@ -22,12 +22,13 @@
       <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
     </ul>
     <% end %>
-    <nav class="white" role="navigation">
-      <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">
-          <%= image_tag "fotopo_logo.png", alt: "FOTOPO icon", id: "pic1", class: "brand-logo", style: "width: 200px; margin: 15px;" %>
-        </a>
-
+    <nav class="white">
+      <div class="nav-wrapper">
+        <%= link_to root_path, class: "brand-logo" do %>
+          <%= image_tag "fotopo_logo.png", alt: "FOTOPO icon", id: "pic1", class: "brand-logo", style: "width: 250px; margin: 11px;" %>
+        <% end %>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      
         <%# ↓brand-logoクラスをつけないとuser/showなどの画像表示が崩れる %>
         <ul class="right hide-on-med-and-down brand-logo">
           <% if user_signed_in? %>
@@ -55,52 +56,67 @@
             </li>
           <% end %>
         </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-          <% if user_signed_in? %>
-            <li>
-              <%= link_to places_path do %>
-                <i class="fas fa-map-marker-alt"></i>スポット
-              <% end %>
-            </li>
-            <li>
-              <%= link_to users_path, class: "navbar-item"  do %>
-                <i class="fas fa-user-friends"></i>ユーザー
-              <% end %>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <%= link_to new_place_path, class: "navbar-item" do %>
-                投稿する
-              <% end %>
-            </li>
-            <li>
-              <%= link_to user_path(current_user), class: "navbar-item" do %>
-                マイページ
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "行きたいところ", user_went_to_gos_path(current_user) %>
-            </li>
-            <li class="divider"></li>
-            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-          </ul>
-          <% else %>
-            <li>
-              <%= link_to new_user_session_path do %>
-              <i class="fas fa-sign-in-alt"></i></i>ログイン
-              <% end %>
-            </li>
-            <li>
-              <%= link_to new_user_registration_path do %>
-              <i class="fas fa-user-plus"></i></i>新規登録
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       </div>
     </nav>
+
+    <!-- モバイルのnav -->
+    <ul id="mobile-demo" class="sidenav">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to places_path do %>
+            <i class="fas fa-map-marker-alt"></i>スポットを探す
+          <% end %>
+        </li>
+        <li>
+          <%= link_to users_path, class: "navbar-item"  do %>
+            <i class="fas fa-user-friends"></i>ユーザーを探す
+          <% end %>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to user_path(current_user) do %>
+            <div class="chip" style="">
+              <%= image_tag current_user.profile_image.url, alt: "Contact Person", class: "circle", style: "width:32px; height: 32px; object-fit: cover;" %>
+              <%= current_user.name %>
+            </div>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_place_path, class: "navbar-item" do %>
+            <i class="fas fa-pencil-alt"></i>投稿する
+          <% end %>
+        </li>
+        <li>
+          <%= link_to user_went_to_gos_path(current_user) do %>
+            <i class="fas fa-map"></i>行きたいスポット
+          <% end %>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            <i class="fas fa-sign-out-alt"></i>ログアウト
+          <% end %>
+        </li>
+      </ul>
+      <% else %>
+        <li>
+          <%= link_to root_path do %>
+          <i class="fas fa-question-circle"></i>fotopoとは？
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_registration_path do %>
+          <i class="fas fa-user-plus"></i></i>新規登録
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path do %>
+          <i class="fas fa-sign-in-alt"></i></i>ログイン
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </ul>
     <main>
     <%= yield %>
     </main>
@@ -109,8 +125,8 @@
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            <h5 class="white-text">fotopo</h5>
+            <p class="grey-text text-lighten-4">「好きな場所」をシェアしよう！</p>
           </div>
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Links</h5>
@@ -126,14 +142,11 @@
       <div class="footer-copyright">
         <div class="container">
         © 2020 YAC
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        <a class="grey-text text-lighten-4 right" href="https://yac-photo.net/">YACのWebサイト</a>
         </div>
       </div>
     </footer>
   </body>
+  
 </html>
 
-
-<script>
-  $(".dropdown-trigger").dropdown();
-</script>

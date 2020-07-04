@@ -5,29 +5,22 @@
   <br>
   <div class="container">
     <%= form_with model: @place do |f| %>
-
       <%= f.hidden_field :latitude, value: 1, id: "set-latitude" %>
       <%= f.hidden_field :longitude, value: 1, id: "set-longitude" %>
-
 
       <div class="field">
         <%= f.label :name, "名称", class: "label" %>
         <%= f.text_field :name, id: "address", class: "input", id: "address" %>
       </div>
       <div class="control">
-        <input type="button" value="見つける" onclick="codeAddress()" class="button">
-        
+        <input type="button" value="見つける" onclick="codeAddress()" class="btn">
       </div>
-      <%= f.submit "この場所を登録する", class: "button" %>
+      <br>
+      <%= f.submit "この場所を登録する", class: "btn", id: "place-submit-button", disabled: "true" %>
   <% end %>
 
   </div>
 </div>
-
-    
-
-
-
 
 <style>
 #map{

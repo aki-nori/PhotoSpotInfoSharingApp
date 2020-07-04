@@ -13,15 +13,24 @@
 //= require jquery
 //= require rails-ujs
 //= require jquery.turbolinks
-//= require activestorage
 //= require turbolinks
+//= require activestorage
 //= require materialize
 
 
 
 $(document).on('turbolinks:load', function() {
-    $(".dropdown-trigger").dropdown();
-    $('select').formSelect();
+    // 各項目を初期化
     $('.sidenav').sidenav();
-    M.updateTextFields();
+    $('.parallax').parallax();
+    $('.dropdown-trigger').dropdown();
+    $('.modal').modal();
+    $('select').formSelect();
+});
+
+// sidenavだけは、進む/戻るで動かなくなるので都度destroyが必要
+$(document).on("turbolinks:before-cache", function() {
+    $('.sidenav').sidenav('destroy');
+    $('.dropdown-trigger').dropdown('destroy');
+    $('.modal').modal('destroy');
 });

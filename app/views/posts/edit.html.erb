@@ -1,28 +1,30 @@
 <div class="container">
   <div style="margin-bottom: 0px;">
     <br>
-    <%= form_with model: @post do |f| %>
+    <%= form_with model: @post, local: true do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
         <div class="input-field col s12">
-          <%= f.text_field :title, class: "" %>
+          <%= f.text_field :title, class: "validate", id: "input_text" %>
           <%= f.label :title, "タイトル", class: "active" %>
+          <span class="helper-text" data-error="wrong" data-success="right">1〜30字</span>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, {}, {selected: @post.place.id, disabled: true} %>
-          <%= f.label :place, "場所", class: "active" %>
+          <%= f.label :place_id, "場所", class: "active" %>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <%= f.date_field :date, class: "" %>
+          <%= f.date_field :date, class: "validate" %>
           <%= f.label :date, "訪問日", class: "active" %>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <%= f.time_field :time, class: "" %>
+          <%= f.time_field :time, class: "validate" %>
           <%= f.label :time, "時間", class: "active" %>
         </div>
       </div>
@@ -70,15 +72,15 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <span class="">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="">
-            <%= f.label :profile_image, "写真" %>
-          </span>
-          <span class="file-name">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>写真</span>
               <%= f.file_field :images, multiple: true, class: "form-control-file" %>
-          </span>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
         </div>
       </div>
         

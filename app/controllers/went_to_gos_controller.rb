@@ -3,8 +3,9 @@ class WentToGosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_place
 
+  # 行ってみたいスポット
   def index
-    user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     went_to_gos = user.went_to_gos
     @places = Place.where(id: went_to_gos.map{|go| go.place_id})
 

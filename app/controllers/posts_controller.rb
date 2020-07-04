@@ -7,8 +7,15 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+
+    # 投稿のあるPlaceのみ
     @places = Place.all
-    
+    array = []
+    @places.each do |place|
+      array.push(place.id) if place.posts.present?
+    end
+    @places = @places.where(id: array)
+
     @place = Place.find(params[:place_id])
     @post.place_id = @place.id
   end
@@ -27,14 +34,36 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+
+    # 投稿のあるPlaceのみ
     @places = Place.all
+    array = []
+    @places.each do |place|
+      array.push(place.id) if place.posts.present?
+    end
+    @places = @places.where(id: array)
+
     @place = @post.place
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update!(post_params)
-    redirect_to post_path(post)
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else
+      # 投稿のあるPlaceのみ
+      @places = Place.all
+      array = []
+      @places.each do |place|
+        array.push(place.id) if place.posts.present?
+      end
+      @places = @places.where(id: array)
+      
+      @place = @post.place
+
+      render "edit"
+    end
+    
   end
 
   def destroy
@@ -44,6 +73,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :user_id, :place_id, :comment, :date, :time, :rate, :access, :notify, :url, :camera, :tag_list, {images: []})
+    params.require(:post).permit(:title, :user_id, :comment, :date, :time, :rate, :access, :notify, :url, :camera, :tag_list, {images: []})
   end
 end

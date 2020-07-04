@@ -2,13 +2,20 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    # 投稿のあるPlaceのみ
     @places = Place.all
+    array = []
+    @places.each do |place|
+      array.push(place.id) if place.posts.present?
+    end
+    @places = @places.where(id: array)
+    
     @posts_data_arr = []
     @places.each do |place|
       @posts_data_arr.push({:id => place.id, :name => place.name, :lat => place.latitude, :lng => place.longitude})
     end
     @posts_data_json = @posts_data_arr.to_json.html_safe
-    
   end
 
   def new
@@ -17,11 +24,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    
-    
     place = Place.new(place_params)
-    
-    
     place.created_by = current_user.id
     place.is_delete = false
     place.save!

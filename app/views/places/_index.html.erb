@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-image">
+    <% if place.posts.present? %>
+      <%= link_to place_path(place) do %>
+        <%= image_tag place.posts.first.images[0].url, style: "object-fit: cover; height: 250px;" %>
+      <% end %>
+    <% end %>
+    <span class="card-title">
+      <i class="fas fa-map-marker-alt"></i> <%= place.name %>
+    </span>
+  </div>
+  <div class="card-content" sytle="height: 250px;">
+    <div id="went-to-go-<%= place.id %>" style="float: left;">
+      <%= render partial: 'went_to_gos/went_to_go', locals: {place: place} %>
+    </div>
+    <div style="margin-left: 10px; display: inline-block;">
+      <i class="fas fa-pen-nib"></i><%= " #{place.posts.count}" %>
+    </div>
+
+    <table>
+      <tr>
+        <th>
+          最新の投稿
+        </th>
+        <td>
+          <% if place.posts.last %>
+            <p><%= place.posts.last.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H時%M分") %></p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <div class="card-action">
+    <%= link_to "#{place.name}の投稿一覧をみる", place_path(place) %>
+  </div>
+</div>
