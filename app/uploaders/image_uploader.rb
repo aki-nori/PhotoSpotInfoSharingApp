@@ -45,6 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
       }
       config.fog_directory     =  ENV['S3_BUCKET']
     end
+  end
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
