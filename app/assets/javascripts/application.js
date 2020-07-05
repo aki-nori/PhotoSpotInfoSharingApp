@@ -10,8 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
 //= require rails-ujs
+//= require jquery
 //= require jquery.turbolinks
 //= require turbolinks
 //= require activestorage
@@ -29,7 +29,13 @@ $(document).on('turbolinks:load', function() {
 
 // sidenavだけは、進む/戻るで動かなくなるので都度destroyが必要
 $(document).on("turbolinks:before-cache", function() {
-    $('.sidenav').sidenav('destroy');
-    $('.dropdown-trigger').dropdown('destroy');
-    $('.modal').modal('destroy');
+    if ('token' in $('.sidenav')) {
+        $('.sidenav').sidenav('destroy');
+    }
+    if ('token' in $('.dropdown-trigger')) {
+        $('.dropdown-trigger').dropdown('destroy');
+    }
+    if ('token' in $('.modal')) {
+        $('.modal').modal('destroy');
+    }
 });
