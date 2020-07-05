@@ -16,7 +16,6 @@
 //= require turbolinks
 //= require activestorage
 //= require materialize-sprockets
-//= require_tree .
 
 
 $(document).on('turbolinks:load', function() {
