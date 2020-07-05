@@ -8,16 +8,20 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @places = Place.all
-
     @place = Place.find(params[:place_id])
     @post.place_id = @place.id
   end
 
   def create
-    post = Post.new(post_params)
-    post.user_id = current_user.id
-    post.save
-    redirect_to post_path(post)
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+    if @post.save
+      redirect_to post_path(@post)
+    else
+      @place = @post.place
+      @places = Place.all
+      render "new"
+    end
   end
 
   def show
@@ -66,6 +70,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :user_id, :comment, :date, :time, :rate, :access, :notify, :url, :camera, :tag_list, {images: []})
+    params.require(:post).permit(:title, :user_id, :place_id, :comment, :date, :time, :rate, :access, :notify, :url, :camera, :tag_list, {images: []})
   end
 end

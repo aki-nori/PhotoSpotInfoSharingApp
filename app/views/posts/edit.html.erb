@@ -2,18 +2,14 @@
   <div style="margin-bottom: 0px;">
     <br>
     <%= form_with model: @post, local: true do |f| %>
+      <h5><b><%= @post.place.name %></b><span style="font-size: 80%;">の投稿編集<span></h5>
+      <%= f.hidden_field :place_id, :value => @post.place.id %>
       <%= render 'layouts/error_messages', model: f.object %>
       <div class="row">
         <div class="input-field col s12">
           <%= f.text_field :title, class: "validate", id: "input_text" %>
           <%= f.label :title, "タイトル", class: "active" %>
           <span class="helper-text" data-error="wrong" data-success="right">1〜30字</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.select :place_id, @places.map{|place| [place.name, place.id]}, {}, {selected: @post.place.id, disabled: true} %>
-          <%= f.label :place_id, "場所", class: "active" %>
         </div>
       </div>
       <div class="row">

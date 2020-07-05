@@ -21,7 +21,10 @@
               <%= link_to post_path(post) do %>
                 <span class="card-title"><%= post.title %></span>
               <% end %>
-                <p><%= post.comment.truncate(63) %></p>
+              <p><%= post.comment.truncate(55) %></p>
+              <div class="right">
+                <i class="fas fa-comment">コメント数 <%= post.comments.count %></i>
+              </div>
             </div>
             <div class="card-action" style="height: 60px;">
               <%= link_to user_path(post.user) do %>

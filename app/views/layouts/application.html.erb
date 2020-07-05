@@ -14,12 +14,28 @@
     <!-- ログイン時のnavセレクトボックス -->
     <% if user_signed_in? %>
     <ul id="dropdown1" class="dropdown-content">
-    <li><%= link_to "投稿する", new_place_path %></li>
+      <li>
+        <%= link_to new_place_path do %>
+          <span style="font-size: 80%;">投稿する</span>
+        <% end %>
+      </li>
       <li class="divider"></li>
-      <li><%= link_to "マイページ", user_path(current_user) %></li>
-      <li><%= link_to "行きたいところ", user_went_to_gos_path(current_user) %></li>
+      <li>
+        <%= link_to user_path(current_user) do %>
+          <span style="font-size: 80%;">マイページ</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to user_went_to_gos_path(current_user) do %>
+          <span style="font-size: 80%;">行きたい<br>スポット</span>
+        <% end %>
+      </li>
       <li class="divider"></li>
-      <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+      <li>
+        <%= link_to  destroy_user_session_path, method: :delete do %>
+          <span style="font-size: 80%;">ログアウト</span>
+        <% end %>
+      </li>
     </ul>
     <% end %>
     <nav class="white">
@@ -35,6 +51,11 @@
             <li>
               <%= link_to places_path do %>
                 <i class="fas fa-map-marker-alt"></i>スポット
+              <% end %>
+            </li>
+            <li>
+              <%= link_to places_path do %>
+                <i class="fas fa-clipboard"></i>投稿
               <% end %>
             </li>
             <li>
@@ -65,6 +86,11 @@
         <li>
           <%= link_to places_path do %>
             <i class="fas fa-map-marker-alt"></i>スポットを探す
+          <% end %>
+        </li>
+        <li>
+          <%= link_to places_path do %>
+            <i class="fas fa-clipboard"></i>投稿を探す
           <% end %>
         </li>
         <li>
