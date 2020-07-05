@@ -32,6 +32,11 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
 
+    # 投稿したユーザでない場合は更新不可
+    if @post.user != current_user
+      redirect_to user_path(current_user)
+    end
+
     # 投稿のあるPlaceのみ
     @places = Place.all
     array = []

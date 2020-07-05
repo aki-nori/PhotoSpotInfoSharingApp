@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
       array.push(place.id) if place.posts.present?
     end
     @places = @places.where(id: array)
-    
+
     @posts_data_arr = []
     @places.each do |place|
       @posts_data_arr.push({:id => place.id, :name => place.name, :lat => place.latitude, :lng => place.longitude})
@@ -29,7 +29,6 @@ class PlacesController < ApplicationController
     place.is_delete = false
     place.save!
     redirect_to new_place_post_path(place)
-
   end
 
   def show
