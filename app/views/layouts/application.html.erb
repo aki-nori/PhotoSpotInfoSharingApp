@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>PhotoSpotInfoSharingApp</title>
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -54,7 +55,7 @@
               <% end %>
             </li>
             <li>
-              <%= link_to places_path do %>
+              <%= link_to posts_path do %>
                 <i class="fas fa-clipboard"></i>投稿
               <% end %>
             </li>
@@ -89,7 +90,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to places_path do %>
+          <%= link_to posts_path do %>
             <i class="fas fa-clipboard"></i>投稿を探す
           <% end %>
         </li>
